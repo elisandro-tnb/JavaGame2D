@@ -10,5 +10,5 @@ public class Main {
 		Game game = new Game(); // INSTANCIADO E INICIALIZADO UMA VARIAVEL DO TIPO GAME
 	    game.start(); // DANDO A PARTIDA
 	}
-
+//GIT OK
 }
