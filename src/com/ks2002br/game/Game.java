@@ -3,7 +3,13 @@ package com.ks2002br.game;
  * by Elisandro
  */
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable {
@@ -18,11 +24,14 @@ public class Game extends Canvas implements Runnable {
 	private boolean isRunning = true;
 	private int frames = 0;
 	
+	private final BufferedImage image ;
+	
 
 	//CONTRUTOR DA CLASSE
 	public Game() {
 		this.setPreferredSize(new Dimension(LARGURA * ESCALA, ALTURA * ESCALA)); // DEFINIMOS O TAMANHO DA JANELA
-		initFrame();  //CHAMADA AO METODO 
+		initFrame(); 
+		image = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_RGB);
 	}
 
 	private void initFrame() {
@@ -60,8 +69,6 @@ public class Game extends Canvas implements Runnable {
 				}
 			
 			if(System.currentTimeMillis() - timer >= 1000) {
-				//	System.out.println("FPS : "+frames);
-				
 				frame.setTitle("MEU JOGO JAVA GAME2D - rodando a "+frames+" FPS");
 				 frames = 0;
 				 timer += 1000;
@@ -91,10 +98,33 @@ public class Game extends Canvas implements Runnable {
 	
 	
 	private void tick() {	
-		System.out.println("TICK OK");
+
 	}
 	
 	private void render() {	
+		BufferStrategy  bs = this.getBufferStrategy();
+		if(bs == null) {
+			this.createBufferStrategy(3);
+			return;
+		}
+		
+	    Graphics g = image.getGraphics();
+	    // RENDER DO GAME - PINTANDO A TELA DE FUNCO
+	    g.setColor(new Color(0,0,0));
+	    g.fillRect(0, 0, LARGURA, ALTURA);
+	    g = bs.getDrawGraphics();
+	    g.drawImage(image,0,0,LARGURA * ESCALA, ALTURA * ESCALA, null);
+	    //A PARTIR DAQUI TUDO SERA REDERIZADO EM CIMA DA COR DA TELA DE FUNDO
+	    
+	    //REDERIZANDO UM TEXTO
+	    g.setColor(new Color(255,0,0));
+	    g.setFont(new Font("arial", Font.BOLD, 30));
+	    g.drawString("Meu primeiro texto render  ",25, 450);
+	    
+	    
+	    // FINAL DO OBJETOS A SEREM DESENHADOS
+	    bs.show(); //MOSTRAR TUDO QUE O PINTOR DESENHOU
+	    g.dispose();
 		
 	}
 
