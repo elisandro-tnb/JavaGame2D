@@ -2,22 +2,20 @@ package com.ks2002br.game;
 /**
  * by Elisandro
  */
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
+
+import com.ks2002br.graficos.CarregarImagem;
 
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	
 	public static JFrame frame;   // INSTANCIAMOS UMA VARIAVEL 
-	public static final int LARGURA = 400, ALTURA = 300;  //VARIAVEL STATIC DEVE SER SEMPRE EM MAIUSCULA
+	public static final int LARGURA = 320, ALTURA = 320;  //VARIAVEL STATIC DEVE SER SEMPRE EM MAIUSCULA
 	public static final int ESCALA = 2;	
 	
 	private Thread thread;
@@ -26,12 +24,20 @@ public class Game extends Canvas implements Runnable {
 	
 	private final BufferedImage image ;
 	
+	private Image img;
+	
 
 	//CONTRUTOR DA CLASSE
 	public Game() {
 		this.setPreferredSize(new Dimension(LARGURA * ESCALA, ALTURA * ESCALA)); // DEFINIMOS O TAMANHO DA JANELA
 		initFrame(); 
 		image = new BufferedImage(LARGURA, ALTURA, BufferedImage.TYPE_INT_RGB);
+		startGame();
+	}
+
+	private void startGame() {
+		img = new CarregarImagem().pegarImagem("/PlanoCart.gif");
+		
 	}
 
 	private void initFrame() {
@@ -117,9 +123,13 @@ public class Game extends Canvas implements Runnable {
 	    //A PARTIR DAQUI TUDO SERA REDERIZADO EM CIMA DA COR DA TELA DE FUNDO
 	    
 	    //REDERIZANDO UM TEXTO
-	    g.setColor(new Color(255,0,0));
-	    g.setFont(new Font("arial", Font.BOLD, 30));
-	    g.drawString("Meu primeiro texto render  ",25, 450);
+//	    g.setColor(new Color(255,0,0));
+//	    g.setFont(new Font("arial", Font.BOLD, 30));
+//	    g.drawString("Meu primeiro texto render  ",25, 450);
+	    
+	    Graphics2D g2d = (Graphics2D)  g;
+	    
+	    g2d.drawImage(img,50,50,500,500,null);    
 	    
 	    
 	    // FINAL DO OBJETOS A SEREM DESENHADOS
