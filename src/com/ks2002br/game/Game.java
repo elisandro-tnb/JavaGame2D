@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 
 import com.ks2002br.graficos.CarregarImagem;
+import com.ks2002br.graficos.FolhaSprites;
 
 public class Game extends Canvas implements Runnable {
 
@@ -25,6 +26,7 @@ public class Game extends Canvas implements Runnable {
 	private final BufferedImage image ;
 	
 	private Image img;
+    private FolhaSprites spriteSheet; //Passo 01  - instanciando ou referenciando
 	
 
 	//CONTRUTOR DA CLASSE
@@ -36,7 +38,8 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void startGame() {
-		img = new CarregarImagem().pegarImagem("/PlanoCart.gif");
+		img = new CarregarImagem().pegarImagem("/coordenadas.png");
+		spriteSheet = new FolhaSprites("/spritesheet-01.png");  //passo 02 / inicializando
 		
 	}
 
@@ -129,12 +132,13 @@ public class Game extends Canvas implements Runnable {
 	    
 	    Graphics2D g2d = (Graphics2D)  g;
 	    
-	    g2d.drawImage(img,50,50,500,500,null);    
+	    g2d.drawImage(img,5,5,625,625,null);    
 	    
+	    g2d.drawImage(spriteSheet.pegarSprite(0, 0, 16, 16),180,50,128,128,null);    //passo 03 - usando
 	    
 	    // FINAL DO OBJETOS A SEREM DESENHADOS
 	    bs.show(); //MOSTRAR TUDO QUE O PINTOR DESENHOU
-	    g.dispose();
+	    g2d.dispose();
 		
 	}
 
