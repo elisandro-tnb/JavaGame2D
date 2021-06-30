@@ -7,8 +7,8 @@ import com.ks2002br.game.Game;
 public class Main {
 
 	public static void main(String[] args) {	
-		Game game = new Game(); // INSTANCIADO E INICIALIZADO UMA VARIAVEL DO TIPO GAME
-	    game.start(); // DANDO A PARTIDA
+		Game game = new Game(); 
+	    game.start();
 	}
 
 }

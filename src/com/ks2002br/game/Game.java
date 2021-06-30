@@ -8,6 +8,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import com.ks2002br.frameworks.Cobaia;
+import com.ks2002br.frameworks.GameController;
+import com.ks2002br.frameworks.ObjectId;
 import com.ks2002br.graficos.CarregarImagem;
 import com.ks2002br.graficos.FolhaSprites;
 
@@ -27,6 +30,8 @@ public class Game extends Canvas implements Runnable {
 	
 	private Image img;
     private FolhaSprites spriteSheet; //Passo 01  - instanciando ou referenciando
+    
+    private GameController gc;
 	
 
 	//CONTRUTOR DA CLASSE
@@ -40,6 +45,11 @@ public class Game extends Canvas implements Runnable {
 	private void startGame() {
 		img = new CarregarImagem().pegarImagem("/coordenadas.png");
 		spriteSheet = new FolhaSprites("/spritesheet-01.png");  //passo 02 / inicializando
+		gc = new GameController();
+		
+		//OBJETOS AQUI
+		gc.addObj(new Cobaia(20, 50,ObjectId.COBAIA));
+		gc.addObj(new Cobaia(120, 450,ObjectId.COBAIA));
 		
 	}
 
@@ -107,7 +117,7 @@ public class Game extends Canvas implements Runnable {
 	
 	
 	private void tick() {	
-
+		gc.update();
 	}
 	
 	private void render() {	
@@ -132,9 +142,11 @@ public class Game extends Canvas implements Runnable {
 	    
 	    Graphics2D g2d = (Graphics2D)  g;
 	    
-	    g2d.drawImage(img,5,5,625,625,null);    
+	  //  g2d.drawImage(img,5,5,625,625,null);    
 	    
-	    g2d.drawImage(spriteSheet.pegarSprite(0, 0, 16, 16),180,50,128,128,null);    //passo 03 - usando
+	//    g2d.drawImage(spriteSheet.pegarSprite(0, 0, 16, 16),180,50,128,128,null);    //passo 03 - usando
+	    
+	    gc.draw(g2d);
 	    
 	    // FINAL DO OBJETOS A SEREM DESENHADOS
 	    bs.show(); //MOSTRAR TUDO QUE O PINTOR DESENHOU
