@@ -8,11 +8,13 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import com.ks2002br.entities.Player;
 import com.ks2002br.frameworks.Cobaia;
 import com.ks2002br.frameworks.GameController;
 import com.ks2002br.frameworks.ObjectId;
 import com.ks2002br.graficos.CarregarImagem;
 import com.ks2002br.graficos.FolhaSprites;
+import com.ks2002br.input.Teclado;
 
 public class Game extends Canvas implements Runnable {
 
@@ -47,9 +49,13 @@ public class Game extends Canvas implements Runnable {
 		spriteSheet = new FolhaSprites("/spritesheet-01.png");  //passo 02 / inicializando
 		gc = new GameController();
 		
-		//OBJETOS AQUI
-		gc.addObj(new Cobaia(20, 50,ObjectId.COBAIA));
-		gc.addObj(new Cobaia(120, 450,ObjectId.COBAIA));
+		addKeyListener(new Teclado(gc));
+		
+		//OBJETOS AQUI			
+		gc.criarMundo();
+		
+		gc.addObj(new Cobaia(220, 250,ObjectId.COBAIA));
+		gc.addObj(new Player(120, 450,ObjectId.PLAYER));
 		
 	}
 

@@ -12,7 +12,7 @@ public class FolhaSprites {
 	public FolhaSprites(String caminho) {
 		try {
 			img = ImageIO.read(getClass().getResource(caminho));
-			System.out.println("Loading spritesheet...  Done!");
+			System.out.println("[DEBUG FolhaSprites] LOADING SPRITESHEET...  OK!");
 		} catch (IOException | IllegalArgumentException e) {
 			System.err.println("[DEBUG FolhaSprites] Não foi localizado o arquivo pedido! Sistema sera encerrado! \n");
 			e.printStackTrace();

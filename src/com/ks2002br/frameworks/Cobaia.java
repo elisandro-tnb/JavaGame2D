@@ -9,16 +9,15 @@ public class Cobaia extends GameObject {
 		super(x, y, id);	
 	}
 
-
 	public void tick() {
-		x++;
+		x+=spdX;
+		y+=spdY;
 	}
 
 
 	public void render(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillRect((int)x, (int)y,128, 128);   
-	}
-	
+		g.fillRect((int)x, (int)y,64, 64);   
+	}	
 	
 }

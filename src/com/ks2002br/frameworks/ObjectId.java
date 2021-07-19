@@ -7,6 +7,6 @@ public enum ObjectId {
 	ENEMY,
 	ARMA,
 	BALA,
-	SOLIDO;
+	SOLIDO, BLOCO;
 	
 }
