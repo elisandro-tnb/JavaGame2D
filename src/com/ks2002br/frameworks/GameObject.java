@@ -1,6 +1,10 @@
 package com.ks2002br.frameworks;
-
+/*
+ * By Elisandro
+ */
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.LinkedList;
 
 public abstract class GameObject {
 	
@@ -15,8 +19,9 @@ public abstract class GameObject {
 		this.id = id;
 	}
 	
-	public abstract void tick();
+	public abstract void tick(LinkedList<GameObject> obj);
 	public abstract void render(Graphics g);
+	public abstract Rectangle getBounds();
 
 	public ObjectId getId() {
 		return id;

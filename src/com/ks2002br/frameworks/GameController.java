@@ -14,7 +14,7 @@ public class GameController {
 	public void update() {
 		for (int i = 0; i < obj.size(); i++) {
 			tempObj = obj.get(i);
-			tempObj.tick();
+			tempObj.tick(obj);
 		}
 	}
 	

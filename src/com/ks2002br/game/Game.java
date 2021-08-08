@@ -54,8 +54,10 @@ public class Game extends Canvas implements Runnable {
 		//OBJETOS AQUI			
 		gc.criarMundo();
 		
-		gc.addObj(new Cobaia(220, 250,ObjectId.COBAIA));
-		gc.addObj(new Player(120, 450,ObjectId.PLAYER));
+		gc.addObj(new Cobaia(220, 350,ObjectId.COBAIA));
+		gc.addObj(new Cobaia(320, 150,ObjectId.COBAIA));
+		gc.addObj(new Cobaia(  80,   80,ObjectId.COBAIA));
+		gc.addObj(new Player(120, 450,ObjectId.PLAYER,gc));
 		
 	}
 
