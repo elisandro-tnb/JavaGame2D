@@ -1,5 +1,7 @@
 package com.ks2002br.graficos;
-
+/*
+ * By Elisandro
+ */
 import java.awt.Image;
 import java.io.IOException;
 
@@ -18,10 +20,8 @@ public class CarregarImagem {
 			System.err.println("[DEBUG CarregarImagem] Não foi localizado o arquivo pedido! Sistema sera encerrado! \n");
 			e.printStackTrace();
 			System.exit(1);
-		}
-				
-		return null;		
-		
+		}				
+		return null;			
 	}
 
 }

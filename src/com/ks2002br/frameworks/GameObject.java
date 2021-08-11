@@ -1,4 +1,5 @@
 package com.ks2002br.frameworks;
+
 /*
  * By Elisandro
  */
@@ -7,20 +8,22 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 public abstract class GameObject {
-	
-	protected ObjectId id; // Id do objeto
-	protected float x,y; // posicao x e y na tela
-	protected float spdX,spdY; // velocidade x e y
-	
-	//construtor
+
+	protected ObjectId id;
+	protected float x, y;
+	protected float spdX, spdY;
+
+	// construtor
 	public GameObject(float x, float y, ObjectId id) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
 	}
-	
+
 	public abstract void tick(LinkedList<GameObject> obj);
+
 	public abstract void render(Graphics g);
+
 	public abstract Rectangle getBounds();
 
 	public ObjectId getId() {
@@ -62,7 +65,5 @@ public abstract class GameObject {
 	public void setSpdY(float spdY) {
 		this.spdY = spdY;
 	}
-	
-	
-	
+
 }

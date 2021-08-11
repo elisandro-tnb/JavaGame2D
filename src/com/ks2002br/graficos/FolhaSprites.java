@@ -1,5 +1,7 @@
 package com.ks2002br.graficos;
-
+/*
+ * By Elisandro
+ */
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
