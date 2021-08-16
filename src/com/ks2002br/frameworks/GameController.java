@@ -40,6 +40,7 @@ public class GameController {
 		this.obj.remove(obj);
 	}
 
+	/*
 	public void criarMundo() {
 
 		for (int xx = 0; xx < Game.LARGURA * 2 + 32; xx += 32) {
@@ -60,6 +61,7 @@ public class GameController {
 		}
 
 	}
+	*/
 //Gets e Sets
 	public boolean isDebug() {
 		return debug;

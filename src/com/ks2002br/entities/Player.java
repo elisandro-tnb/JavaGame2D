@@ -8,7 +8,7 @@ import com.ks2002br.frameworks.*;
 
 public class Player extends GameObject {
 
-	private int width = 32, height = 128; // Largura e altura do player ( obj)
+	private int width = 32, height = 64; // Largura e altura do player ( obj)
 	private int colW = width, colH = height; // Largura e altura da caixa de colisao
 
 	private GameController gc;
@@ -50,14 +50,13 @@ public class Player extends GameObject {
 
 			// colisao cobaia
 			else if (tempObj.getId() == ObjectId.COBAIA) {
-				// if (getBounds().intersects(tempObj.getBounds())) System.out.println("CABECADA
-				// NO COBAIA");
-				// else if (getBoundsBaixo().intersects(tempObj.getBounds()))
-				// gc.removeObj(gc.obj.get(i));
-				// else if (getBoundsEsq() .intersects(tempObj.getBounds()))
-				// gc.obj.get(i).setSpdX(-5);
-				// else if (getBoundsDir() .intersects(tempObj.getBounds()))
-				// gc.obj.get(i).setSpdX( 5);
+				 if (getBounds().intersects(tempObj.getBounds())) System.out.println("CABECADA NO COBAIA");
+				 else if (getBoundsBaixo().intersects(tempObj.getBounds()))
+				 gc.removeObj(gc.obj.get(i));
+				 else if (getBoundsEsq() .intersects(tempObj.getBounds()))
+				 gc.obj.get(i).setSpdX(-5);
+				 else if (getBoundsDir() .intersects(tempObj.getBounds()))
+				 gc.obj.get(i).setSpdX( 5);
 
 			}
 

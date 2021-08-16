@@ -8,9 +8,13 @@ import java.awt.image.*;
 import javax.swing.JFrame;
 
 import com.ks2002br.entities.Player;
+import com.ks2002br.frameworks.Cobaia;
 import com.ks2002br.frameworks.GameController;
 import com.ks2002br.frameworks.ObjectId;
+import com.ks2002br.graficos.CarregarImagem;
 import com.ks2002br.input.Teclado;
+import com.ks2002br.world.Camera;
+import com.ks2002br.world.World;
 
 public class Game extends Canvas implements Runnable {
 
@@ -25,7 +29,10 @@ public class Game extends Canvas implements Runnable {
 	private int frames = 0;
 
 	private final BufferedImage image;
-	private GameController gc;
+	public static GameController gc;
+	private BufferedImage level = null;
+	private World world;
+	private Camera cam;
 
 	// CONTRUTOR DA CLASSE
 	public Game() {
@@ -39,8 +46,12 @@ public class Game extends Canvas implements Runnable {
 		gc = new GameController();
 		addKeyListener(new Teclado(gc));
 		// OBJETOS AQUI
-		gc.criarMundo();
-		gc.addObj(new Player(120, 450, ObjectId.PLAYER, gc));
+		
+		CarregarImagem mapa = new CarregarImagem();
+		level = mapa.pegarImagem("/mapa-01.png");
+		world = new World(level, gc);
+		world.carregarLevel();
+		cam = new Camera(0,0);
 	}
 
 	private void initFrame() {
@@ -104,6 +115,13 @@ public class Game extends Canvas implements Runnable {
 
 	private void tick() {
 		gc.update();
+		
+		for (int i = 0; i <gc.obj.size(); i++) {
+			if(gc.obj.get(i).getId() == ObjectId.PLAYER) {
+				cam.tick(gc.obj.get(i));
+			}
+		}
+		
 	}
 
 	private void render() {
@@ -122,8 +140,12 @@ public class Game extends Canvas implements Runnable {
 		// A PARTIR DAQUI TUDO SERA REDERIZADO EM CIMA DA COR DA TELA DE FUNDO
 
 		Graphics2D g2d = (Graphics2D) g;
+		
+		g2d.translate(cam.getCamX(), cam.getCamY()); // CAMERA INICIO 
 
 		gc.draw(g2d);
+		
+		g2d.translate(-cam.getCamX(),-cam.getCamY()); // CAMERA FIM 
 
 		// FINAL DO OBJETOS A SEREM DESENHADOS
 		bs.show(); // MOSTRAR TUDO QUE O PINTOR DESENHOU

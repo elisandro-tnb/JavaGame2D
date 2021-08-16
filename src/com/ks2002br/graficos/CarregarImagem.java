@@ -2,16 +2,17 @@ package com.ks2002br.graficos;
 /*
  * By Elisandro
  */
-import java.awt.Image;
+
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class CarregarImagem {
 	
-	private Image img;
+	private BufferedImage img;
 	
-	public Image pegarImagem(String caminho) {
+	public BufferedImage pegarImagem(String caminho) {
 		try {
 			img = ImageIO.read(getClass().getResource(caminho));
 			System.out.println("[DEBUG CarregarImagem] CARREGANDO IMAGEM - COMPLETO!");
