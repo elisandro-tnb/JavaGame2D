@@ -13,7 +13,7 @@ public class World {
 	
 	private BufferedImage level;
 	private GameController gc;
-	private int w,h;
+	public static int w,h;
 	
 	public World(BufferedImage level, GameController gc) {
 		this.level = level;
