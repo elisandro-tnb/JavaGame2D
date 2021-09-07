@@ -49,7 +49,7 @@ public class Player extends GameObject {
 			}
 
 			// colisao cobaia
-			else if (tempObj.getId() == ObjectId.COBAIA) {
+			else if (tempObj.getId() == ObjectId.ENEMY) {
 				 if (getBounds().intersects(tempObj.getBounds())) System.out.println("CABECADA NO COBAIA");
 				 else if (getBoundsBaixo().intersects(tempObj.getBounds()))
 				 gc.removeObj(gc.obj.get(i));
