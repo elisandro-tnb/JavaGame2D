@@ -3,27 +3,21 @@ package com.ks2002br.graficos;
  * By Elisandro
  */
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class FolhaSprites {
 
-	private BufferedImage img;
+	private BufferedImage img;	
 
-	public FolhaSprites(String caminho) {
-		try {
-			img = ImageIO.read(getClass().getResource(caminho));
-			System.out.println("[DEBUG FolhaSprites] LOADING SPRITESHEET...  OK!");
-		} catch (IOException | IllegalArgumentException e) {
-			System.err.println("[DEBUG FolhaSprites] Não foi localizado o arquivo pedido! Sistema sera encerrado! \n");
-			e.printStackTrace();
-			System.exit(1);
-		}
+	public FolhaSprites(BufferedImage image) {
+		this.img = image;
 	}
 
-	public BufferedImage pegarSprite(int x, int y, int w, int h) {
+	public BufferedImage pegarSpritePosXPosY(int x, int y, int w, int h) {
 		return img.getSubimage(x, y, w, h);
+	}
+	
+	public BufferedImage pegarSpriteColRow(int col, int row, int w, int h) {
+		return img.getSubimage((col * w) - w,(row * h) -h, w, h);
 	}
 
 }

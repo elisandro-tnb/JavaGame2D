@@ -6,12 +6,10 @@ package com.ks2002br.game;
 import java.awt.*;
 import java.awt.image.*;
 import javax.swing.JFrame;
-
-import com.ks2002br.entities.Player;
-import com.ks2002br.frameworks.Cobaia;
 import com.ks2002br.frameworks.GameController;
 import com.ks2002br.frameworks.ObjectId;
 import com.ks2002br.graficos.CarregarImagem;
+import com.ks2002br.graficos.Texturas;
 import com.ks2002br.input.Teclado;
 import com.ks2002br.world.Camera;
 import com.ks2002br.world.World;
@@ -33,6 +31,7 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage level = null;
 	private World world;
 	private Camera cam;
+	private static Texturas tex;
 
 	// CONTRUTOR DA CLASSE
 	public Game() {
@@ -48,6 +47,8 @@ public class Game extends Canvas implements Runnable {
 		// OBJETOS AQUI
 		
 		CarregarImagem mapa = new CarregarImagem();
+		tex = new Texturas();
+		
 		level = mapa.pegarImagem("/mapa-01.png");
 		world = new World(level, gc);
 		world.carregarLevel();
@@ -152,4 +153,9 @@ public class Game extends Canvas implements Runnable {
 		g2d.dispose();
 	}
 
+	
+	public static Texturas getInstance() {
+		return tex;
+	}
+	
 }

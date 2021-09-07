@@ -28,7 +28,8 @@ public class World {
 		for (int xx = 0; xx < h; xx++) {
 			for (int yy = 0; yy < w; yy++) {
 				int pixel = level.getRGB(xx, yy);
-				if(pixel == 0xFFFFFFFF) Game.gc.addObj(new Bloco(xx*32, yy*32, ObjectId.BLOCO));
+				if(pixel == 0xFFFFFFFF) Game.gc.addObj(new Bloco(xx*32, yy*32, 0,ObjectId.BLOCO));
+				else if(pixel == 0xFF7F3300) Game.gc.addObj(new Bloco(xx*32, yy*32, 1,ObjectId.BLOCO));
 				else if(pixel == 0xFFFF0000) Game.gc.addObj(new Player(xx*32,yy*32,ObjectId.PLAYER, gc));
 				else if(pixel == 0xFFFF6A00 )Game.gc.addObj(new Cobaia(xx*32,yy*32,ObjectId.COBAIA));
 			}
