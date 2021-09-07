@@ -21,7 +21,7 @@ public class World {
 		w=level.getWidth();
 		h=level.getHeight();
 		
-		System.out.println("[DEBUG WORLD] MAPA x,y = "+w+ " , "+h);
+		System.out.println("[DEBUG WORLD] MAPA x,y = "+w*32+ " , "+h*32);
 	}
 
 	public void carregarLevel() {

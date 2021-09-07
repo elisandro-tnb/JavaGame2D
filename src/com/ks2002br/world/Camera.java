@@ -14,7 +14,10 @@ public class Camera {
 	}
 	
 	public void tick(GameObject player) {
-		camX = -player.getX() + Game.LARGURA/2;
+		
+		if(player.getX() >= Game.LARGURA && player.getX() <= (World.w*32) -Game.LARGURA)	{	
+		              camX = -player.getX() + Game.LARGURA;
+		}
 //		camY++;
 	}
 
