@@ -4,30 +4,32 @@ import java.awt.image.BufferedImage;
 
 public class Texturas {
 
-	private FolhaSprites  blockSheet, enemySheet;  //Instancia/referencia
+	private FolhaSprites  blockSheet, enemySheet, playerSheet;  //Instancia/referencia
 	
-	private BufferedImage bloco_tex;
-	private BufferedImage enemy_tex;
-	
-	public BufferedImage[] block = new BufferedImage[4]; //SPRITES DOS BLOCOS
+	private BufferedImage bloco_tex,  enemy_tex, player_tex;
+		
+	public BufferedImage[] block   = new BufferedImage[4]; //SPRITES DOS BLOCOS
 	public BufferedImage[] enemy = new BufferedImage[2]; //SPRITES DOS BLOCOS
+	public BufferedImage[] player  = new BufferedImage[4]; //SPRITES DO PLAYER
 	
 	public Texturas() {
 		CarregarImagem loader = new CarregarImagem();
 		try {
-			bloco_tex = loader.pegarImagem("/bloco_tex.png ");
+			
+			bloco_tex   =  loader.pegarImagem("/bloco_tex.png ");
 			enemy_tex =  loader.pegarImagem("/enemy_tex.png ");
+			player_tex  =  loader.pegarImagem("/player_tex.png ");			
+			
 			System.out.println("[DEBUG TEXTURA] TEXTURAS CARREGADAS COM SUCESSO!");
 		} catch (Exception e) {
 			System.err.println("[DEBUG TEXTURA] DEU RUIM AO CARREGAR AS TEXTURAS...!");
 		}
 		
-		blockSheet = new FolhaSprites(bloco_tex);
+		blockSheet   = new FolhaSprites(bloco_tex);
 		enemySheet = new FolhaSprites(enemy_tex);
+		playerSheet  = new FolhaSprites(player_tex);		
 		
-		
-		getTextures();		
-		
+		getTextures();				
 		
 	}
 
@@ -40,6 +42,12 @@ public class Texturas {
 		//ENEMY
 		enemy[0] = enemySheet.pegarSpriteColRow(1, 1, 32,64);  //Lado 1
 		enemy[1] = enemySheet.pegarSpriteColRow(2, 1, 32,64); //  Lado 2
+		
+		//PLAYER
+		player[0] = playerSheet.pegarSpriteColRow(1, 1, 32,64); //CIMA
+		player[1] = playerSheet.pegarSpriteColRow(1, 2, 32,64);//BAIXO
+		player[2] = playerSheet.pegarSpriteColRow(1, 3, 32,64);//ESQ
+		player[3] = playerSheet.pegarSpriteColRow(1, 4, 32,64);//DIR
 		
 	}
 	

@@ -33,7 +33,7 @@ public class World {
 				else if(pixel == 0xFFFFD800) Game.gc.addObj(new Bloco(xx*32, yy*32, 2,ObjectId.BLOCO)); //TERRA CENTRAL
 				else if(pixel == 0xFF7C3C11) Game.gc.addObj(new Bloco(xx*32, yy*32, 3,ObjectId.BLOCO)); //TERRA DIR
 				
-				else if(pixel == 0xFFFF0000) Game.gc.addObj(new Player(xx*32,yy*32,ObjectId.PLAYER, gc));
+				else if(pixel == 0xFFFF0000) Game.gc.addObj(new Player(xx*32,yy*32,3,ObjectId.PLAYER, gc));
 				
 				else if(pixel == 0xFFFF6A00 )Game.gc.addObj(new Enemy(xx*32,yy*32,0,ObjectId.ENEMY)); //INIMIGO
 				else if(pixel == 0xFF0026FF)Game.gc.addObj(new Enemy(xx*32,yy*32,1,ObjectId.ENEMY));

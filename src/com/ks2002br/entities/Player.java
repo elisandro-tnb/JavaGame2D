@@ -5,22 +5,36 @@ package com.ks2002br.entities;
 import java.awt.*;
 import java.util.LinkedList;
 import com.ks2002br.frameworks.*;
+import com.ks2002br.game.Game;
+import com.ks2002br.graficos.Texturas;
 
 public class Player extends GameObject {
 
 	private int width = 32, height = 64; // Largura e altura do player ( obj)
 	private int colW = width, colH = height; // Largura e altura da caixa de colisao
+	
+	private int tipo;
+	private Texturas tex = Game.getInstance();
 
 	private GameController gc;
 
-	public Player(float x, float y, ObjectId id, GameController gc) {
+	public Player(float x, float y, int tipo, ObjectId id, GameController gc) {
 		super(x, y, id);
 		this.gc = gc;
+		this.tipo = tipo;
 	}
 
 	public void tick(LinkedList<GameObject> obj) {
 		x += spdX;
 		y += spdY;
+		
+		
+		//esq/dir
+		if(spdX == 5 ) tipo=2;
+		else if(spdX == -5 ) tipo=3;
+		//up/down
+		if(spdY == -5 ) tipo=0;
+		else if(spdY == 5 ) tipo=1;
 
 		verificarColisao(obj);
 	}
@@ -65,8 +79,13 @@ public class Player extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.white);
-		g.fillRect((int) x, (int) y, width, height);
+		//g.setColor(Color.white);
+	//	g.fillRect((int) x, (int) y, width, height);
+		
+		if(tipo== 0) g.drawImage(tex.player[0],(int) x,(int) y,null);
+		if(tipo== 1) g.drawImage(tex.player[1],(int) x,(int) y,null);
+		if(tipo== 2) g.drawImage(tex.player[2],(int) x,(int) y,null);
+		if(tipo== 3) g.drawImage(tex.player[3],(int) x,(int) y,null);		
 
 		Graphics2D g2d = (Graphics2D) g;
 
