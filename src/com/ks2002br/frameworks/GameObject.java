@@ -12,6 +12,9 @@ public abstract class GameObject {
 	protected ObjectId id;
 	protected float x, y;
 	protected float spdX, spdY;
+	
+	protected boolean falling = true; //CAINDO
+	protected boolean jumping = false; // PULO
 
 	// construtor
 	public GameObject(float x, float y, ObjectId id) {
@@ -65,5 +68,23 @@ public abstract class GameObject {
 	public void setSpdY(float spdY) {
 		this.spdY = spdY;
 	}
+
+	public boolean isFalling() {
+		return falling;
+	}
+
+	public void setFalling(boolean falling) {
+		this.falling = falling;
+	}
+
+	public boolean isJumping() {
+		return jumping;
+	}
+
+	public void setJumping(boolean jumping) {
+		this.jumping = jumping;
+	}
+	
+	
 
 }

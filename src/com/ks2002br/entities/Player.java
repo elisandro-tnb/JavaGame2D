@@ -13,6 +13,9 @@ public class Player extends GameObject {
 	private int width = 32, height = 64; // Largura e altura do player ( obj)
 	private int colW = width, colH = height; // Largura e altura da caixa de colisao
 	
+	private float gravity = 0.5f;
+	private final float MAX_SPD = 10;
+	
 	private int tipo;
 	private Texturas tex = Game.getInstance();
 
@@ -26,18 +29,27 @@ public class Player extends GameObject {
 
 	public void tick(LinkedList<GameObject> obj) {
 		x += spdX;
-		y += spdY;
+		y += spdY;		
 		
-		
-		//esq/dir
-		if(spdX == 5 ) tipo=2;
-		else if(spdX == -5 ) tipo=3;
-		//up/down
-		if(spdY == -5 ) tipo=0;
-		else if(spdY == 5 ) tipo=1;
 
-		verificarColisao(obj);
+		//esq/dir
+		if(spdX > 0 ) tipo=2;
+		else if(spdX < 0 ) tipo=3;
+		//up/down
+		if(spdY < 0 ) tipo=0;
+		else if(spdY > 0) tipo=1;
+				
+		if(falling || jumping) {
+			spdY += gravity;			
+			if(spdY > MAX_SPD) spdY = MAX_SPD;
+		}
+			
+		verificarColisao(obj);	
+		
+		System.out.println("spdX ="+spdX);
+		System.out.println("spdY = "+spdY);
 	}
+
 
 	private void verificarColisao(LinkedList<GameObject> obj) {
 		for (int i = 0; i < gc.obj.size(); i++) {
@@ -45,14 +57,20 @@ public class Player extends GameObject {
 			if (tempObj.getId() == ObjectId.BLOCO) {
 
 				if (getBounds().intersects(tempObj.getBounds())) {
+					spdY=0;
 					y = tempObj.getY() + 32;
 				}
 
-				else if (getBoundsBaixo().intersects(tempObj.getBounds())) {
-					y = tempObj.getY() - height;
+				else  if (getBoundsBaixo().intersects(tempObj.getBounds())) {
+					spdY = 0;
+					y = tempObj.getY() - height +2;
+					falling = false;
+					jumping = false;
+				}else {
+					falling=true;
 				}
 
-				else if (getBoundsEsq().intersects(tempObj.getBounds())) {
+				 if (getBoundsEsq().intersects(tempObj.getBounds())) {
 					x = tempObj.getX() + 32;
 				}
 

@@ -24,8 +24,12 @@ public class Teclado extends KeyAdapter {
 			if (objTemp.getId() == ObjectId.PLAYER) {
 				if (tecla == KeyEvent.VK_D) 	objTemp.setSpdX(5);
 				if (tecla == KeyEvent.VK_A) 	objTemp.setSpdX(-5);
-				if (tecla == KeyEvent.VK_W)	objTemp.setSpdY(-5);
-				if (tecla == KeyEvent.VK_S)		objTemp.setSpdY(5);
+				if (tecla == KeyEvent.VK_SPACE  && !objTemp.isJumping())	{
+					objTemp.setJumping(true);
+					objTemp.setSpdY(-15);
+				}
+		    	//if (tecla == KeyEvent.VK_W)	objTemp.setSpdY(-5);
+				//if (tecla == KeyEvent.VK_S)		objTemp.setSpdY(5);
 			}
 
 		}
@@ -45,8 +49,8 @@ public class Teclado extends KeyAdapter {
 			if (objTemp.getId() == ObjectId.PLAYER) {
 				if (tecla == KeyEvent.VK_D) 	objTemp.setSpdX(0);
 				if (tecla == KeyEvent.VK_A)		objTemp.setSpdX(0);
-				if (tecla == KeyEvent.VK_W)	objTemp.setSpdY(0);
-				if (tecla == KeyEvent.VK_S)		objTemp.setSpdY(0);
+			//	if (tecla == KeyEvent.VK_W)	objTemp.setSpdY(0);
+			//	if (tecla == KeyEvent.VK_S)		objTemp.setSpdY(0);
 			}
 
 		}
