@@ -6,6 +6,9 @@ package com.ks2002br.game;
 import java.awt.*;
 import java.awt.image.*;
 import javax.swing.JFrame;
+
+import com.ks2002br.entities.TestAnim;
+import com.ks2002br.frameworks.Animation;
 import com.ks2002br.frameworks.GameController;
 import com.ks2002br.frameworks.ObjectId;
 import com.ks2002br.graficos.CarregarImagem;
@@ -32,6 +35,10 @@ public class Game extends Canvas implements Runnable {
 	private World world;
 	private Camera cam;
 	private static Texturas tex;
+	
+	
+	private TestAnim testAnim;
+	
 
 	// CONTRUTOR DA CLASSE
 	public Game() {
@@ -48,6 +55,8 @@ public class Game extends Canvas implements Runnable {
 		
 		CarregarImagem mapa = new CarregarImagem();
 		tex = new Texturas();
+		
+		testAnim = new TestAnim(40, 60, null);
 		
 		level = mapa.pegarImagem("/mapa-01.png");
 		world = new World(level, gc);
@@ -123,6 +132,9 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 		
+		
+		testAnim.tick(null);
+		
 	}
 
 	private void render() {
@@ -147,6 +159,9 @@ public class Game extends Canvas implements Runnable {
 		gc.draw(g2d);
 		
 		g2d.translate(-cam.getCamX(),-cam.getCamY()); // CAMERA FIM 
+		
+		
+		testAnim.render(g2d);
 
 		// FINAL DO OBJETOS A SEREM DESENHADOS
 		bs.show(); // MOSTRAR TUDO QUE O PINTOR DESENHOU

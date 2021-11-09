@@ -10,7 +10,13 @@ public class Texturas {
 		
 	public BufferedImage[] block   = new BufferedImage[4]; //SPRITES DOS BLOCOS
 	public BufferedImage[] enemy = new BufferedImage[2]; //SPRITES DOS BLOCOS
-	public BufferedImage[] player  = new BufferedImage[4]; //SPRITES DO PLAYER
+	public BufferedImage[] player_idle = new BufferedImage[2]; //SPRITES DO PLAYER PARADO
+	
+	public BufferedImage[] playerUp      = new BufferedImage[5]; // SPRITES DO PLAYER SUBINDO
+	public BufferedImage[] playerDown = new BufferedImage[5]; // SPRITES DO PLAYER DESCENDO
+	public BufferedImage[] playerLeft    = new BufferedImage[8]; // SPRITES DO PLAYER ESQUERDA
+	public BufferedImage[] playerRight  = new BufferedImage[8]; // SPRITES DO PLAYER DIREITA
+	
 	
 	public Texturas() {
 		CarregarImagem loader = new CarregarImagem();
@@ -44,10 +50,42 @@ public class Texturas {
 		enemy[1] = enemySheet.pegarSpriteColRow(2, 1, 32,64); //  Lado 2
 		
 		//PLAYER
-		player[0] = playerSheet.pegarSpriteColRow(1, 1, 32,64); //CIMA
-		player[1] = playerSheet.pegarSpriteColRow(1, 2, 32,64);//BAIXO
-		player[2] = playerSheet.pegarSpriteColRow(1, 3, 32,64);//ESQ
-		player[3] = playerSheet.pegarSpriteColRow(1, 4, 32,64);//DIR
+		
+		playerUp[0] = playerSheet.pegarSpriteColRow(1, 1, 32, 64);
+		playerUp[1] = playerSheet.pegarSpriteColRow(2, 1, 32, 64);
+		playerUp[2] = playerSheet.pegarSpriteColRow(3, 1, 32, 64);
+		playerUp[3] = playerSheet.pegarSpriteColRow(4, 1, 32, 64);
+		playerUp[4] = playerSheet.pegarSpriteColRow(5, 1, 32, 64);
+
+		// PLAYER DOWN
+		playerDown[0] = playerSheet.pegarSpriteColRow(1, 2, 32, 64);
+		playerDown[1] = playerSheet.pegarSpriteColRow(2, 2, 32, 64);
+		playerDown[2] = playerSheet.pegarSpriteColRow(3, 2, 32, 64);
+		playerDown[3] = playerSheet.pegarSpriteColRow(4, 2, 32, 64);
+		playerDown[4] = playerSheet.pegarSpriteColRow(5, 2, 32, 64);
+
+		// PLAYER LEFT
+		playerLeft[0] = playerSheet.pegarSpriteColRow(1, 3, 32, 64);
+		playerLeft[1] = playerSheet.pegarSpriteColRow(2, 3, 32, 64);
+		playerLeft[2] = playerSheet.pegarSpriteColRow(3, 3, 32, 64);
+		playerLeft[3] = playerSheet.pegarSpriteColRow(4, 3, 32, 64);
+		playerLeft[4] = playerSheet.pegarSpriteColRow(5, 3, 32, 64);
+		playerLeft[5] = playerSheet.pegarSpriteColRow(6, 3, 32, 64);
+		playerLeft[6] = playerSheet.pegarSpriteColRow(7, 3, 32, 64);
+		playerLeft[7] = playerSheet.pegarSpriteColRow(8, 3, 32, 64);
+
+		// PLAYER RIGHT
+		playerRight[0] = playerSheet.pegarSpriteColRow(1, 4, 32, 64);
+		playerRight[1] = playerSheet.pegarSpriteColRow(2, 4, 32, 64);
+		playerRight[2] = playerSheet.pegarSpriteColRow(3, 4, 32, 64);
+		playerRight[3] = playerSheet.pegarSpriteColRow(4, 4, 32, 64);
+		playerRight[4] = playerSheet.pegarSpriteColRow(5, 4, 32, 64);
+		playerRight[5] = playerSheet.pegarSpriteColRow(6, 4, 32, 64);
+		playerRight[6] = playerSheet.pegarSpriteColRow(7, 4, 32, 64);
+		playerRight[7] = playerSheet.pegarSpriteColRow(8, 4, 32, 64);
+		
+		player_idle[0] = playerSheet.pegarSpriteColRow(7, 2, 32,64); //FRAME 01
+		player_idle[1] = playerSheet.pegarSpriteColRow(8, 2, 32,64); //FRAME 02
 		
 	}
 	

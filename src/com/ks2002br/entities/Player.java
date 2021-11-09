@@ -29,8 +29,7 @@ public class Player extends GameObject {
 
 	public void tick(LinkedList<GameObject> obj) {
 		x += spdX;
-		y += spdY;		
-		
+		y += spdY;			
 
 		//esq/dir
 		if(spdX > 0 ) tipo=2;
@@ -44,10 +43,8 @@ public class Player extends GameObject {
 			if(spdY > MAX_SPD) spdY = MAX_SPD;
 		}
 			
-		verificarColisao(obj);	
-		
-		System.out.println("spdX ="+spdX);
-		System.out.println("spdY = "+spdY);
+		verificarColisao(obj);		
+
 	}
 
 
@@ -100,10 +97,10 @@ public class Player extends GameObject {
 		//g.setColor(Color.white);
 	//	g.fillRect((int) x, (int) y, width, height);
 		
-		if(tipo== 0) g.drawImage(tex.player[0],(int) x,(int) y,null);
-		if(tipo== 1) g.drawImage(tex.player[1],(int) x,(int) y,null);
-		if(tipo== 2) g.drawImage(tex.player[2],(int) x,(int) y,null);
-		if(tipo== 3) g.drawImage(tex.player[3],(int) x,(int) y,null);		
+	//	if(tipo== 0) g.drawImage(tex.player[0],(int) x,(int) y,null);
+	//	if(tipo== 1) g.drawImage(tex.player[1],(int) x,(int) y,null);
+	//	if(tipo== 2) g.drawImage(tex.player[2],(int) x,(int) y,null);
+	//	if(tipo== 3) g.drawImage(tex.player[3],(int) x,(int) y,null);		
 
 		Graphics2D g2d = (Graphics2D) g;
 
