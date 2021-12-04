@@ -20,11 +20,25 @@ public class Player extends GameObject {
 	private Texturas tex = Game.getInstance();
 
 	private GameController gc;
+	
+	private Animation animIdle, animEsq, animDir;	
+	private int dir = 1;  //1 = direita  -1 = esquerda
+	private boolean move = false;
 
 	public Player(float x, float y, int tipo, ObjectId id, GameController gc) {
 		super(x, y, id);
 		this.gc = gc;
 		this.tipo = tipo;
+		
+		startPlayer();
+	}
+
+	private void startPlayer() {
+		
+	animIdle   = new Animation(10,tex.player_idle);
+	animEsq   = new Animation(5, tex.playerLeft);	
+	animDir     = new Animation(5, tex.playerRight);
+		
 	}
 
 	public void tick(LinkedList<GameObject> obj) {
@@ -42,11 +56,26 @@ public class Player extends GameObject {
 			spdY += gravity;			
 			if(spdY > MAX_SPD) spdY = MAX_SPD;
 		}
-			
-		verificarColisao(obj);		
+		
+		if (spdX > 0 ) dir = 1;
+		if (spdX < 0 ) dir = -1;		
+		
+		startAnim();
+		verificarColisao(obj);	
 
 	}
 
+
+	private void startAnim() {
+
+		animEsq.runAnimation();
+		animDir.runAnimation();
+		animIdle.runAnimation();
+		
+		if (spdX != 0 ) move = true;
+		else move = false;		
+		
+	}
 
 	private void verificarColisao(LinkedList<GameObject> obj) {
 		for (int i = 0; i < gc.obj.size(); i++) {
@@ -94,15 +123,20 @@ public class Player extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		//g.setColor(Color.white);
-	//	g.fillRect((int) x, (int) y, width, height);
-		
-	//	if(tipo== 0) g.drawImage(tex.player[0],(int) x,(int) y,null);
-	//	if(tipo== 1) g.drawImage(tex.player[1],(int) x,(int) y,null);
-	//	if(tipo== 2) g.drawImage(tex.player[2],(int) x,(int) y,null);
-	//	if(tipo== 3) g.drawImage(tex.player[3],(int) x,(int) y,null);		
-
 		Graphics2D g2d = (Graphics2D) g;
+		
+		if(move) {
+			
+			if(dir == 1) animDir.renderAnimation(g2d, (int) x, (int) y);
+			else if(dir == -1) animEsq.renderAnimation(g2d, (int) x, (int) y);
+			
+			
+		}else {
+			animIdle.renderAnimation(g2d, (int) x, (int) y);			
+		}
+		
+		
+		
 
 		// REDERIZACAO DAS CAIXAS DE COLISOES
 		if (gc.isDebug()) {
