@@ -12,10 +12,10 @@ public class CarregarImagem {
 	
 	private BufferedImage img;
 	
-	public BufferedImage pegarImagem(String caminho) {
+	public BufferedImage pegarImagem(String path) {
 		try {
-			img = ImageIO.read(getClass().getResource(caminho));
-			System.out.println("[DEBUG CarregarImagem] CARREGANDO IMAGEM - COMPLETO!");
+			img = ImageIO.read(getClass().getResource(path));
+			System.out.println("[DEBUG CarregarImagem] CARREGANDO IMAGEM: "+path);
 			return img;
 		} catch (IOException |  IllegalArgumentException e) {		
 			System.err.println("[DEBUG CarregarImagem] Não foi localizado o arquivo pedido! Sistema sera encerrado! \n");

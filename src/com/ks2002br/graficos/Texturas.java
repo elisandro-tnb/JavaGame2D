@@ -5,8 +5,10 @@ import java.awt.image.BufferedImage;
 public class Texturas {
 
 	private FolhaSprites  blockSheet, enemySheet, playerSheet;  //Instancia/referencia
+	private FolhaSprites batSheet;
 	
 	private BufferedImage bloco_tex,  enemy_tex, player_tex;
+	private BufferedImage bat_tex;
 		
 	public BufferedImage[] block   = new BufferedImage[4]; //SPRITES DOS BLOCOS
 	public BufferedImage[] enemy = new BufferedImage[2]; //SPRITES DOS BLOCOS
@@ -17,6 +19,7 @@ public class Texturas {
 	public BufferedImage[] playerLeft    = new BufferedImage[8]; // SPRITES DO PLAYER ESQUERDA
 	public BufferedImage[] playerRight  = new BufferedImage[8]; // SPRITES DO PLAYER DIREITA
 	
+	public BufferedImage[] bat_idle  = new BufferedImage[4];
 	
 	public Texturas() {
 		CarregarImagem loader = new CarregarImagem();
@@ -24,7 +27,8 @@ public class Texturas {
 			
 			bloco_tex   =  loader.pegarImagem("/bloco_tex.png ");
 			enemy_tex =  loader.pegarImagem("/enemy_tex.png ");
-			player_tex  =  loader.pegarImagem("/player_tex.png ");			
+			player_tex  =  loader.pegarImagem("/player_tex.png ");	
+			bat_tex       =  loader.pegarImagem("/bat_tex.png ");	
 			
 			System.out.println("[DEBUG TEXTURA] TEXTURAS CARREGADAS COM SUCESSO!");
 		} catch (Exception e) {
@@ -34,6 +38,7 @@ public class Texturas {
 		blockSheet   = new FolhaSprites(bloco_tex);
 		enemySheet = new FolhaSprites(enemy_tex);
 		playerSheet  = new FolhaSprites(player_tex);		
+		batSheet       = new FolhaSprites(bat_tex);
 		
 		getTextures();				
 		
@@ -74,6 +79,11 @@ public class Texturas {
 		
 		player_idle[0] = playerSheet.pegarSpriteColRow(7, 2, 32,64); //FRAME 01
 		player_idle[1] = playerSheet.pegarSpriteColRow(8, 2, 32,64); //FRAME 02
+		
+		
+		for (int i = 0; i < bat_idle.length; i++) {
+			bat_idle[i] = batSheet.pegarSpriteColRow(i+1, 1, 32, 32);
+		}
 		
 	}
 	
