@@ -4,6 +4,12 @@ import java.awt.image.BufferedImage;
 
 import com.ks2002br.entities.Enemy;
 import com.ks2002br.entities.Player;
+import com.ks2002br.entities.itens.Ammo;
+import com.ks2002br.entities.itens.Gun;
+import com.ks2002br.entities.itens.Key;
+import com.ks2002br.entities.itens.KeyCard;
+import com.ks2002br.entities.itens.Medkit;
+import com.ks2002br.entities.itens.Potion;
 import com.ks2002br.frameworks.Bloco;
 import com.ks2002br.frameworks.GameController;
 import com.ks2002br.frameworks.ObjectId;
@@ -37,6 +43,25 @@ public class World {
 				
 				else if(pixel == 0xFFFF6A00 )Game.gc.addObj(new Enemy(xx*32,yy*32,0,ObjectId.ENEMY)); //INIMIGO
 				else if(pixel == 0xFF0026FF)Game.gc.addObj(new Enemy(xx*32,yy*32,1,ObjectId.ENEMY));
+				
+				
+//Criando os itens
+				
+				
+				else if(pixel == 0xFF0028FF)Game.gc.addObj(new Medkit(xx*32,yy*32,1,ObjectId.MEDKIT));
+				else if(pixel == 0xFF002CFF)Game.gc.addObj(new Medkit(xx*32,yy*32,2,ObjectId.MEDKIT));
+				
+				else if(pixel == 0xFF0032FF)Game.gc.addObj(new Potion(xx*32,yy*32,1,ObjectId.POTION));
+				else if(pixel == 0xFF003AFF)Game.gc.addObj(new Potion(xx*32,yy*32,2,ObjectId.POTION));
+				
+				else if(pixel == 0xFF0040FF)Game.gc.addObj(new Gun(xx*32,yy*32,1,ObjectId.GUN));
+				else if(pixel == 0xFF0046FF)Game.gc.addObj(new Ammo(xx*32,yy*32,2,ObjectId.BOX_AMMO));
+				else if(pixel == 0xFF0050FF)Game.gc.addObj(new Ammo(xx*32,yy*32,1,ObjectId.AMMO));
+				
+				else if(pixel == 0xFF005AFF)Game.gc.addObj(new Key(xx*32,yy*32,ObjectId.KEY));
+				else if(pixel == 0xFF0062FF)Game.gc.addObj(new KeyCard(xx*32,yy*32,1,ObjectId.KEY_CARD));
+				else if(pixel == 0xFF006EFF)Game.gc.addObj(new KeyCard(xx*32,yy*32,2,ObjectId.KEY_CARD));
+				
 			}
 			
 		}

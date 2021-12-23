@@ -4,6 +4,7 @@ package com.ks2002br.frameworks;
  */
 public enum ObjectId {
 
-	 PLAYER, ENEMY, ARMA, BALA, SOLIDO, BLOCO;
+	PLAYER, ENEMY, GUN, AMMO, SOLIDO, BLOCO,
+	 MEDKIT,POTION,KEY,KEY_CARD, BOX_AMMO;
 
 }

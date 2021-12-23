@@ -15,11 +15,20 @@ public abstract class GameObject {
 	
 	protected boolean falling = true; //CAINDO
 	protected boolean jumping = false; // PULO
+	
+	protected int type;
 
 	// construtor
 	public GameObject(float x, float y, ObjectId id) {
 		this.x = x;
 		this.y = y;
+		this.id = id;
+	}
+	
+	public GameObject(float x, float y, int type, ObjectId id) {
+		this.x = x;
+		this.y = y;
+		this.type = type;
 		this.id = id;
 	}
 
@@ -83,6 +92,14 @@ public abstract class GameObject {
 
 	public void setJumping(boolean jumping) {
 		this.jumping = jumping;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 	

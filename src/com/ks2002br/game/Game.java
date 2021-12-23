@@ -146,7 +146,7 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = image.getGraphics();
 		// RENDER DO GAME - PINTANDO A TELA DE FUNCO
-		g.setColor(new Color(0, 0, 0));
+		g.setColor(new Color(80,158,216));
 		g.fillRect(0, 0, LARGURA, ALTURA);
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, LARGURA * ESCALA, ALTURA * ESCALA, null);
