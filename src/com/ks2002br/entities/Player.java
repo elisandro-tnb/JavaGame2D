@@ -1,6 +1,7 @@
 package com.ks2002br.entities;
+
 /*
- * by Elisandro
+ * By Elisandro 12/2021 revisao geral
  */
 import java.awt.*;
 import java.util.LinkedList;
@@ -10,136 +11,110 @@ import com.ks2002br.graficos.Texturas;
 
 public class Player extends GameObject {
 
-	private int width = 32, height = 64; // Largura e altura do player ( obj)
-	private int colW = width, colH = height; // Largura e altura da caixa de colisao
-	
+	private int width = 32, height = 64; 
+	private int colW = width, colH = height; 
 	private float gravity = 0.5f;
 	private final float MAX_SPD = 10;
-	
-	private int tipo;
-	private Texturas tex = Game.getInstance();
-
-	private GameController gc;
-	
-	private Animation animIdle, animEsq, animDir;	
-	private int dir = 1;  //1 = direita  -1 = esquerda
 	private boolean move = false;
+	private long firingTimer, firingDelay;
 
-	public Player(float x, float y, int tipo, ObjectId id, GameController gc) {
+	private Texturas tex = Game.getInstance();
+	private GameController gc;
+	private Animation animIdle, animEsq, animDir;
+
+	public Player(float x, float y, ObjectId id, GameController gc) {
 		super(x, y, id);
 		this.gc = gc;
-		this.tipo = tipo;
-		
+
 		startPlayer();
 	}
 
 	private void startPlayer() {
-		
-	animIdle   = new Animation(10,tex.player_idle);
-	animEsq   = new Animation(5, tex.playerLeft);	
-	animDir     = new Animation(5, tex.playerRight);
-		
+		firingDelay = System.nanoTime();
+		firingDelay = 400;
+
+		animIdle = new Animation(10, tex.player_idle);
+		animEsq = new Animation(5, tex.playerLeft);
+		animDir = new Animation(5, tex.playerRight);
 	}
 
 	public void tick(LinkedList<GameObject> obj) {
 		x += spdX;
-		y += spdY;			
+		y += spdY;
 
-		//esq/dir
-		if(spdX > 0 ) tipo=2;
-		else if(spdX < 0 ) tipo=3;
-		//up/down
-		if(spdY < 0 ) tipo=0;
-		else if(spdY > 0) tipo=1;
-				
-		if(falling || jumping) {
-			spdY += gravity;			
-			if(spdY > MAX_SPD) spdY = MAX_SPD;
+		if (falling || jumping) {
+			spdY += gravity;
+			if (spdY > MAX_SPD) 	spdY = MAX_SPD;
 		}
-		
-		if (spdX > 0 ) dir = 1;
-		if (spdX < 0 ) dir = -1;		
-		
-		startAnim();
-		verificarColisao(obj);	
 
+		if (spdX > 0) 	dir = 1;
+		if (spdX < 0) 	dir = -1;
+
+		startAnim();
+		isCollision(obj);
+
+		if (shooting) {
+			long elapsed = (System.nanoTime() - firingTimer) / 1000000;
+			if (elapsed > firingDelay) {
+				gc.addObj(new Bullet(x + 8, y + 10, dir * 1, System.nanoTime(), gc, ObjectId.BULLET));
+				firingTimer = System.nanoTime();
+			}
+		}
 	}
 
-
 	private void startAnim() {
-
 		animEsq.runAnimation();
 		animDir.runAnimation();
 		animIdle.runAnimation();
-		
-		if (spdX != 0 ) move = true;
-		else move = false;		
-		
+
+		if (spdX != 0)  	move = true;
+		else  move = false;
 	}
 
-	private void verificarColisao(LinkedList<GameObject> obj) {
+	private void isCollision(LinkedList<GameObject> obj) {
 		for (int i = 0; i < gc.obj.size(); i++) {
 			GameObject tempObj = gc.obj.get(i);
 			if (tempObj.getId() == ObjectId.BLOCO) {
-
 				if (getBounds().intersects(tempObj.getBounds())) {
-					spdY=0;
+					spdY = 0;
 					y = tempObj.getY() + 32;
 				}
 
-				else  if (getBoundsBaixo().intersects(tempObj.getBounds())) {
+				else if (getBoundsBaixo().intersects(tempObj.getBounds())) {
 					spdY = 0;
-					y = tempObj.getY() - height +2;
+					y = tempObj.getY() - height + 2;
 					falling = false;
 					jumping = false;
-				}else {
-					falling=true;
+				} else {
+					falling = true;
 				}
 
-				 if (getBoundsEsq().intersects(tempObj.getBounds())) {
-					x = tempObj.getX() + 32;
+				if (getBoundsEsq().intersects(tempObj.getBounds())) 	x = tempObj.getX() + 32;
+				else if (getBoundsDir().intersects(tempObj.getBounds())) 	x = tempObj.getX() - width;
 				}
-
-				else if (getBoundsDir().intersects(tempObj.getBounds())) {
-					x = tempObj.getX() - width;
-				}
-
-			}
 
 			// colisao cobaia
 			else if (tempObj.getId() == ObjectId.ENEMY) {
-				 if (getBounds().intersects(tempObj.getBounds())) System.out.println("CABECADA NO COBAIA");
-				 else if (getBoundsBaixo().intersects(tempObj.getBounds()))
-				 gc.removeObj(gc.obj.get(i));
-				 else if (getBoundsEsq() .intersects(tempObj.getBounds()))
-				 gc.obj.get(i).setSpdX(-5);
-				 else if (getBoundsDir() .intersects(tempObj.getBounds()))
-				 gc.obj.get(i).setSpdX( 5);
-
+				if (getBounds().intersects(tempObj.getBounds())) 		System.out.println("CABECADA NO COBAIA");
+				else if (getBoundsBaixo().intersects(tempObj.getBounds()))   gc.removeObj(gc.obj.get(i));
+				else if (getBoundsEsq().intersects(tempObj.getBounds()))      gc.obj.get(i).setSpdX(-5);
+				else if (getBoundsDir().intersects(tempObj.getBounds()))		   gc.obj.get(i).setSpdX(5);
 			}
-
 		}
-
 	}
 
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		
-		if(move) {
-			
-			if(dir == 1) animDir.renderAnimation(g2d, (int) x, (int) y);
-			else if(dir == -1) animEsq.renderAnimation(g2d, (int) x, (int) y);
-			
-			
-		}else {
-			animIdle.renderAnimation(g2d, (int) x, (int) y);			
+
+		if (move) {
+			if (dir == 1) 		        animDir.renderAnimation(g2d, (int) x, (int) y);
+			else if (dir == -1) 	animEsq.renderAnimation(g2d, (int) x, (int) y);
+		} else {
+			animIdle.renderAnimation(g2d, (int) x, (int) y);
 		}
-		
-		
-		
 
 		// REDERIZACAO DAS CAIXAS DE COLISOES
-		if (gc.isDebug()) {
+		if (isDebug()) {
 			g.setColor(Color.RED);
 			g2d.draw(getBounds());
 
@@ -152,12 +127,10 @@ public class Player extends GameObject {
 			g.setColor(Color.CYAN);
 			g2d.draw(getBoundsEsq());
 
-			// Debug x,y
 			g.setFont(new Font("arial", Font.BOLD, 16));
 			g.setColor(new Color(255, 50, 20));
 			g.drawString("x,y: " + x + " / " + y + " " + this.id, (int) x, (int) y);
 		}
-
 	}
 
 	public Rectangle getBounds() {
@@ -175,5 +148,4 @@ public class Player extends GameObject {
 	public Rectangle getBoundsEsq() {
 		return new Rectangle((int) x, (int) y + 5, 5, colH - 10);
 	}
-
 }

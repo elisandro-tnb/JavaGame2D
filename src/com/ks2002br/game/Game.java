@@ -1,21 +1,16 @@
 package com.ks2002br.game;
 
-/**
- * by Elisandro
+/*
+ * By Elisandro 12/2021 revisao geral
  */
 import java.awt.*;
 import java.awt.image.*;
 import javax.swing.JFrame;
 
-import com.ks2002br.entities.TestAnim;
-import com.ks2002br.frameworks.Animation;
-import com.ks2002br.frameworks.GameController;
-import com.ks2002br.frameworks.ObjectId;
-import com.ks2002br.graficos.CarregarImagem;
-import com.ks2002br.graficos.Texturas;
+import com.ks2002br.frameworks.*;
+import com.ks2002br.graficos.*;
 import com.ks2002br.input.Teclado;
-import com.ks2002br.world.Camera;
-import com.ks2002br.world.World;
+import com.ks2002br.world.*;
 
 public class Game extends Canvas implements Runnable {
 
@@ -35,10 +30,8 @@ public class Game extends Canvas implements Runnable {
 	private World world;
 	private Camera cam;
 	private static Texturas tex;
-	
-	
-	//private TestAnim testAnim;
-	
+
+	// private TestAnim testAnim;
 
 	// CONTRUTOR DA CLASSE
 	public Game() {
@@ -52,16 +45,15 @@ public class Game extends Canvas implements Runnable {
 		gc = new GameController();
 		addKeyListener(new Teclado(gc));
 		// OBJETOS AQUI
-		
 		CarregarImagem mapa = new CarregarImagem();
 		tex = new Texturas();
-		
-		//testAnim = new TestAnim(40, 60, null);
-		
+
+		// testAnim = new TestAnim(40, 60, null);
+
 		level = mapa.pegarImagem("/mapa-01.png");
 		world = new World(level, gc);
 		world.carregarLevel();
-		cam = new Camera(0,0);
+		cam = new Camera(0, 0);
 	}
 
 	private void initFrame() {
@@ -125,16 +117,26 @@ public class Game extends Canvas implements Runnable {
 
 	private void tick() {
 		gc.update();
-		
-		for (int i = 0; i <gc.obj.size(); i++) {
-			if(gc.obj.get(i).getId() == ObjectId.PLAYER) {
+
+		for (int i = 0; i < gc.obj.size(); i++) {
+			if (gc.obj.get(i).getId() == ObjectId.PLAYER) {
 				cam.tick(gc.obj.get(i));
 			}
+
+			if (gc.obj.get(i).getId() == ObjectId.BULLET) {
+				long now = System.nanoTime();
+
+				GameObject objTemp = gc.obj.get(i);
+
+				long last = objTemp.isTimer();
+				long live = (now - last) / 1000000;
+
+				if (live >= 4000) {
+					gc.removeObj(gc.obj.get(i));					
+				}
+			}
 		}
-		
-		
-	//	testAnim.tick(null);
-		
+		// testAnim.tick(null);
 	}
 
 	private void render() {
@@ -146,31 +148,27 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = image.getGraphics();
 		// RENDER DO GAME - PINTANDO A TELA DE FUNCO
-		g.setColor(new Color(80,158,216));
+		g.setColor(new Color(80, 158, 216));
 		g.fillRect(0, 0, LARGURA, ALTURA);
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, LARGURA * ESCALA, ALTURA * ESCALA, null);
 		// A PARTIR DAQUI TUDO SERA REDERIZADO EM CIMA DA COR DA TELA DE FUNDO
-
 		Graphics2D g2d = (Graphics2D) g;
-		
-		g2d.translate(cam.getCamX(), cam.getCamY()); // CAMERA INICIO 
+
+		g2d.translate(cam.getCamX(), cam.getCamY()); // CAMERA INICIO
 
 		gc.draw(g2d);
-		
-		g2d.translate(-cam.getCamX(),-cam.getCamY()); // CAMERA FIM 
-		
-		
-	//	testAnim.render(g2d);
+
+		g2d.translate(-cam.getCamX(), -cam.getCamY()); // CAMERA FIM
+
+		// testAnim.render(g2d);
 
 		// FINAL DO OBJETOS A SEREM DESENHADOS
 		bs.show(); // MOSTRAR TUDO QUE O PINTOR DESENHOU
 		g2d.dispose();
 	}
 
-	
 	public static Texturas getInstance() {
 		return tex;
 	}
-	
 }

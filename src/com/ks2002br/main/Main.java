@@ -1,6 +1,7 @@
 package com.ks2002br.main;
+
 /*
- * by Elisandro
+ * By Elisandro 12/2021 revisao geral
  */
 import com.ks2002br.game.Game;
 
@@ -10,5 +11,4 @@ public class Main {
 		Game game = new Game(); 
 	    game.start();
 	}
-
 }

@@ -1,7 +1,7 @@
 package com.ks2002br.input;
 
-/*
- * By Elisandro
+ /*
+ * By Elisandro 12/2021 revisao geral
  */
 import java.awt.event.*;
 import com.ks2002br.frameworks.*;
@@ -24,20 +24,17 @@ public class Teclado extends KeyAdapter {
 			if (objTemp.getId() == ObjectId.PLAYER) {
 				if (tecla == KeyEvent.VK_D) 	objTemp.setSpdX(5);
 				if (tecla == KeyEvent.VK_A) 	objTemp.setSpdX(-5);
-				if (tecla == KeyEvent.VK_SPACE  && !objTemp.isJumping())	{
+				if (tecla == KeyEvent.VK_W  && !objTemp.isJumping())	{
 					objTemp.setJumping(true);
 					objTemp.setSpdY(-15);
 				}
-		    	//if (tecla == KeyEvent.VK_W)	objTemp.setSpdY(-5);
-				//if (tecla == KeyEvent.VK_S)		objTemp.setSpdY(5);
+		    	
+				if (tecla == KeyEvent.VK_SPACE)	objTemp.setShooting(true);
+				if (tecla == KeyEvent.VK_F3) {					
+					if(!objTemp.isDebug())  	objTemp.setDebug(true);
+					else 	objTemp.setDebug(false);			
+				}
 			}
-
-		}
-		
-		if (tecla == KeyEvent.VK_F3) {
-			
-			if(!gc.isDebug())  	gc.setDebug(true);
-			else 	gc.setDebug(false);			
 		}
 	}
 
@@ -49,11 +46,8 @@ public class Teclado extends KeyAdapter {
 			if (objTemp.getId() == ObjectId.PLAYER) {
 				if (tecla == KeyEvent.VK_D) 	objTemp.setSpdX(0);
 				if (tecla == KeyEvent.VK_A)		objTemp.setSpdX(0);
-			//	if (tecla == KeyEvent.VK_W)	objTemp.setSpdY(0);
-			//	if (tecla == KeyEvent.VK_S)		objTemp.setSpdY(0);
+				if (tecla == KeyEvent.VK_SPACE)	objTemp.setShooting(false);
 			}
-
 		}
 	}
-
 }

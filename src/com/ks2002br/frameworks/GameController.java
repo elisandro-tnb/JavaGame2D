@@ -1,28 +1,33 @@
 package com.ks2002br.frameworks;
 
 /*
- * By Elisandro
+ * By Elisandro 12/2021 revisao geral
  */
 import java.awt.Graphics;
 import java.util.LinkedList;
 
-import com.ks2002br.game.Game;
-
 public class GameController {
-/*
- * By Elisandro
- */
-	private boolean debug = false;
 
 	public LinkedList<GameObject> obj = new LinkedList<>();
-
 	private GameObject tempObj;
 
 	public void update() {
+		int contador = 0;
+
 		for (int i = 0; i < obj.size(); i++) {
 			tempObj = obj.get(i);
 			tempObj.tick(obj);
 		}
+
+		for (int i = 0; i < obj.size(); i++) {
+			tempObj = obj.get(i);
+			if (tempObj.getId() == ObjectId.BULLET) {
+				contador++;
+			}
+		}
+
+		//System.out.println("[DEBUG GC - Bullets in Game = " + contador);
+
 	}
 
 	public void draw(Graphics g) {
@@ -40,35 +45,12 @@ public class GameController {
 		this.obj.remove(obj);
 	}
 
-	/*
-	public void criarMundo() {
-
-		for (int xx = 0; xx < Game.LARGURA * 2 + 32; xx += 32) {
-
-			addObj(new Bloco(xx, 0, ObjectId.BLOCO));
-			addObj(new Bloco(xx, Game.ALTURA * 2 - 32, ObjectId.BLOCO));
-			addObj(new Bloco(0, xx + 32, ObjectId.BLOCO));
-			addObj(new Bloco(Game.ALTURA * 2 - 32, xx, ObjectId.BLOCO));
-
-			for (int i = 0; i < 10; i++) {
-				addObj(new Bloco(160 + i * 32, 350, ObjectId.BLOCO));
-			}
-
-			for (int i = 0; i < 5; i++) {
-				addObj(new Bloco(96 + i * 32, 190, ObjectId.BLOCO));
-			}
-
-		}
-
-	}
-	*/
 //Gets e Sets
-	public boolean isDebug() {
-		return debug;
-	}
-
-	public void setDebug(boolean debug) {
-		this.debug = debug;
-	}
-
+//	public boolean isDebug() {
+//		return debug;
+//	}
+//
+//	public void setDebug(boolean debug) {
+//		this.debug = debug;
+//	}
 }

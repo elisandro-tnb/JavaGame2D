@@ -1,11 +1,9 @@
 package com.ks2002br.entities.itens;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.LinkedList;
 
-import com.ks2002br.frameworks.GameObject;
-import com.ks2002br.frameworks.ObjectId;
+import com.ks2002br.frameworks.*;
 import com.ks2002br.game.Game;
 import com.ks2002br.graficos.Texturas;
 
@@ -23,15 +21,11 @@ public class Gun extends GameObject {
 
 	@Override
 	public void render(Graphics g) {	
-		
-		if(type == 1) g.drawImage(tex.item[4], (int) x, (int) y,null);
-
+			g.drawImage(tex.item[4], (int) x, (int) y,null);
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		
 		return new Rectangle((int) x, (int) y, 32, 32);
 	}
-
 }
