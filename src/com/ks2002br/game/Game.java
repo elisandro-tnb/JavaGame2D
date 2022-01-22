@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable {
 	private static Texturas tex;
 
 	// private TestAnim testAnim;
+	private InforDebug  dbg;
 
 	// CONTRUTOR DA CLASSE
 	public Game() {
@@ -49,6 +50,7 @@ public class Game extends Canvas implements Runnable {
 		tex = new Texturas();
 
 		// testAnim = new TestAnim(40, 60, null);
+		dbg = new InforDebug(gc);
 
 		level = mapa.pegarImagem("/mapa-01.png");
 		world = new World(level, gc);
@@ -137,6 +139,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 		// testAnim.tick(null);
+		dbg.update();
 	}
 
 	private void render() {
@@ -162,6 +165,7 @@ public class Game extends Canvas implements Runnable {
 		g2d.translate(-cam.getCamX(), -cam.getCamY()); // CAMERA FIM
 
 		// testAnim.render(g2d);
+		dbg.render(g2d);
 
 		// FINAL DO OBJETOS A SEREM DESENHADOS
 		bs.show(); // MOSTRAR TUDO QUE O PINTOR DESENHOU

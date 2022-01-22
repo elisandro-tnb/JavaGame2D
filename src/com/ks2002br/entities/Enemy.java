@@ -43,10 +43,16 @@ public class Enemy extends GameObject {
 	}
 
 	public void render(Graphics g) {
+		
 		animIdle.renderAnimation(g, (int) x, (int) y);
 		
-		//g.setColor(Color.red);
-		// g.fillRect((int) x, (int) y, 64, 64);
+		if(isDebug()) {
+			g.setColor(Color.red);
+			g.drawRect((int) x, (int) y, 32, 32);
+		}
+		
+		
+		
 		//g.drawString("X =  " + x + "  dir = " + dir, (int) x, (int) y);
 		// if(tipo== 0) g.drawImage(tex.enemy[0],(int) x,(int) y,null);
 		// if(tipo== 1) g.drawImage(tex.enemy[1],(int) x,(int) y, null);		

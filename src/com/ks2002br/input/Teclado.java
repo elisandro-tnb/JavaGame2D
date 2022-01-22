@@ -30,9 +30,9 @@ public class Teclado extends KeyAdapter {
 				}
 		    	
 				if (tecla == KeyEvent.VK_SPACE)	objTemp.setShooting(true);
-				if (tecla == KeyEvent.VK_F3) {					
-					if(!objTemp.isDebug())  	objTemp.setDebug(true);
-					else 	objTemp.setDebug(false);			
+				if (tecla == KeyEvent.VK_M) {					
+					if(!gc.isDebug())  	gc.setDebug(true);
+					else 	gc.setDebug(false);			
 				}
 			}
 		}

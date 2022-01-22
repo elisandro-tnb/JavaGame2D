@@ -22,6 +22,11 @@ public class Gun extends GameObject {
 	@Override
 	public void render(Graphics g) {	
 			g.drawImage(tex.item[4], (int) x, (int) y,null);
+			
+			if(isDebug()) {
+				g.setColor(Color.yellow);
+				g.drawRect((int) x, (int) y, 32, 32);
+			}
 	}
 
 	@Override

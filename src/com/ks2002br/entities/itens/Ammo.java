@@ -1,5 +1,6 @@
 package com.ks2002br.entities.itens;
 
+import java.awt.Color;
 /*
  * By Elisandro 12/2021 revisao geral
  */
@@ -28,6 +29,11 @@ public class Ammo extends GameObject {
 	public void render(Graphics g) {
 		if (type == 1) 	g.drawImage(tex.item[5], (int) x, (int) y, null);
 		if (type == 2)	g.drawImage(tex.item[6], (int) x, (int) y, null);
+		
+		if(isDebug()) {
+			g.setColor(Color.black);
+			g.drawRect((int) x, (int) y, 32, 32);
+		}
 	}
 
 	@Override

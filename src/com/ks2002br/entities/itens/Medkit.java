@@ -26,6 +26,12 @@ public class Medkit extends GameObject {
 	public void render(Graphics g) {
 		if (type == 1)  	g.drawImage(tex.item[0], (int) x, (int) y, null);
 		if (type == 2) 	g.drawImage(tex.item[1], (int) x, (int) y, null);
+		
+		if(isDebug()) {
+			g.setColor(Color.red);
+			g.drawRect((int) x, (int) y, 32, 32);
+		}
+		
 	}
 
 	@Override

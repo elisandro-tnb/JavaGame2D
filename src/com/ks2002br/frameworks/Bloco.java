@@ -25,6 +25,12 @@ public class Bloco extends GameObject {
 		if(type== 1) g.drawImage(tex.block[1],(int) x,(int) y, null);
 		if(type== 2) g.drawImage(tex.block[2],(int) x,(int) y, null);
 		if(type== 3) g.drawImage(tex.block[3],(int) x,(int) y, null);
+		
+		if(isDebug()) {
+			g.setColor(Color.white);
+			g.drawRect((int) x, (int) y, 32, 32);
+		}
+		
 	}
 
 	@Override

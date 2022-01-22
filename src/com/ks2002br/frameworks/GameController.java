@@ -8,6 +8,8 @@ import java.util.LinkedList;
 
 public class GameController {
 
+	private boolean debug;
+	
 	public LinkedList<GameObject> obj = new LinkedList<>();
 	private GameObject tempObj;
 
@@ -46,11 +48,11 @@ public class GameController {
 	}
 
 //Gets e Sets
-//	public boolean isDebug() {
-//		return debug;
-//	}
-//
-//	public void setDebug(boolean debug) {
-//		this.debug = debug;
-//	}
+	public boolean isDebug() {
+		return debug;
+	}
+
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 }

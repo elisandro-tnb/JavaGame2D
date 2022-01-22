@@ -129,7 +129,7 @@ public class Player extends GameObject {
 
 			g.setFont(new Font("arial", Font.BOLD, 16));
 			g.setColor(new Color(255, 50, 20));
-			g.drawString("x,y: " + x + " / " + y + " " + this.id, (int) x, (int) y);
+			//g.drawString("x,y: " + x + " / " + y + " " + this.id, (int) x, (int) y);
 		}
 	}
 

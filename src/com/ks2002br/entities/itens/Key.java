@@ -25,6 +25,11 @@ public class Key extends GameObject {
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(tex.item[7], (int) x, (int) y, null);
+		
+		if(isDebug()) {
+			g.setColor(Color.red);
+			g.drawRect((int) x, (int) y, 32, 32);
+		}
 	}
 
 	@Override

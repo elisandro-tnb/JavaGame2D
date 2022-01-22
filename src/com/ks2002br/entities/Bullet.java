@@ -49,6 +49,11 @@ public class Bullet extends GameObject {
 	public void render(Graphics g) {
 		g.setColor(new Color(255, 0, 0));
 		g.fillOval((int) x, (int) y, 16, 16);
+		
+		if(isDebug()) {
+			g.setColor(Color.black);
+			g.drawRect((int) x, (int) y, 16, 16);
+		}
 	}
 
 	@Override
