@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.LinkedList;
 
 import com.ks2002br.frameworks.*;
+import com.ks2002br.sound.LoadSound;
 
 public class Bullet extends GameObject {
 
@@ -39,6 +40,7 @@ public class Bullet extends GameObject {
 			if (objTemp.getId() == ObjectId.ENEMY) {
 				if (getBounds().intersects(objTemp.getBounds())) {
 					gc.removeObj(gc.obj.get(i));
+					LoadSound.morri.play();
 					gc.removeObj(this);
 				}
 			}

@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import com.ks2002br.frameworks.*;
 import com.ks2002br.graficos.*;
 import com.ks2002br.input.Teclado;
+import com.ks2002br.sound.LoadSound;
 import com.ks2002br.world.*;
 
 public class Game extends Canvas implements Runnable {
@@ -56,6 +57,9 @@ public class Game extends Canvas implements Runnable {
 		world = new World(level, gc);
 		world.carregarLevel();
 		cam = new Camera(0, 0);
+		
+		LoadSound.bgm.playLoop();
+		
 	}
 
 	private void initFrame() {

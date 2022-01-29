@@ -8,23 +8,23 @@ import java.util.LinkedList;
 import com.ks2002br.frameworks.*;
 import com.ks2002br.game.Game;
 import com.ks2002br.graficos.Texturas;
+import com.ks2002br.sound.LoadSound;
 
 public class Player extends GameObject {
 
-	private int width = 32, height = 64; 
-	private int colW = width, colH = height; 
+	private int width = 32, height = 64;
+	private int colW = width, colH = height;
 	private float gravity = 0.5f;
 	private final float MAX_SPD = 10;
 	private boolean move = false;
 	private long firingTimer, firingDelay;
-	
+
 	private int life = 100;
 	private int ammo = 0;
 	private int potion = 0;
 	private int key = 0;
 	private int key_card = 0;
 	private boolean isGun = false;
-	
 
 	private Texturas tex = Game.getInstance();
 	private GameController gc;
@@ -52,11 +52,14 @@ public class Player extends GameObject {
 
 		if (falling || jumping) {
 			spdY += gravity;
-			if (spdY > MAX_SPD) 	spdY = MAX_SPD;
+			if (spdY > MAX_SPD)
+				spdY = MAX_SPD;
 		}
 
-		if (spdX > 0) 	dir = 1;
-		if (spdX < 0) 	dir = -1;
+		if (spdX > 0)
+			dir = 1;
+		if (spdX < 0)
+			dir = -1;
 
 		startAnim();
 		isCollision(obj);
@@ -66,6 +69,7 @@ public class Player extends GameObject {
 			if (elapsed > firingDelay) {
 				gc.addObj(new Bullet(x + 8, y + 10, dir * 1, System.nanoTime(), gc, ObjectId.BULLET));
 				firingTimer = System.nanoTime();
+				LoadSound.shot.play();
 			}
 		}
 	}
@@ -75,8 +79,10 @@ public class Player extends GameObject {
 		animDir.runAnimation();
 		animIdle.runAnimation();
 
-		if (spdX != 0)  	move = true;
-		else  move = false;
+		if (spdX != 0)
+			move = true;
+		else
+			move = false;
 	}
 
 	private void isCollision(LinkedList<GameObject> obj) {
@@ -97,91 +103,102 @@ public class Player extends GameObject {
 					falling = true;
 				}
 
-				if (getBoundsEsq().intersects(tempObj.getBounds())) 	x = tempObj.getX() + 32;
-				else if (getBoundsDir().intersects(tempObj.getBounds())) 	x = tempObj.getX() - width;
-				}
+				if (getBoundsEsq().intersects(tempObj.getBounds()))
+					x = tempObj.getX() + 32;
+				else if (getBoundsDir().intersects(tempObj.getBounds()))
+					x = tempObj.getX() - width;
+			}
 
 			// colisao cobaia
 			else if (tempObj.getId() == ObjectId.ENEMY) {
-				if (getBounds().intersects(tempObj.getBounds())) 		System.out.println("CABECADA NO COBAIA");
-				else if (getBoundsBaixo().intersects(tempObj.getBounds()))   gc.removeObj(gc.obj.get(i));
-				else if (getBoundsEsq().intersects(tempObj.getBounds()))      gc.obj.get(i).setSpdX(-5);
-				else if (getBoundsDir().intersects(tempObj.getBounds()))		   gc.obj.get(i).setSpdX(5);
+				if (getBounds().intersects(tempObj.getBounds()))
+					System.out.println("CABECADA NO COBAIA");
+				else if (getBoundsBaixo().intersects(tempObj.getBounds())) {
+					gc.removeObj(gc.obj.get(i));
+					LoadSound.morri.play();
+				} else if (getBoundsEsq().intersects(tempObj.getBounds())) {
+					gc.obj.get(i).setSpdX(-5);
+					LoadSound.hurt.play();
+				} else if (getBoundsDir().intersects(tempObj.getBounds())) {
+					gc.obj.get(i).setSpdX(5);
+					LoadSound.hurt.play();
+				}
 			}
-			
-			
+
 			// COLETA DE ITENS
 
-						else if (tempObj.getId() == ObjectId.AMMO) {
-							if (getBounds().intersects(tempObj.getBounds())) {
-								ammo+=5;
-								gc.removeObj(gc.obj.get(i));					
-								System.out.println("COLETOU 5 BALAS  - ESTOU COM " +ammo+" BALAS");
-							}
+			else if (tempObj.getId() == ObjectId.AMMO) {
+				if (getBounds().intersects(tempObj.getBounds())) {
+					ammo += 5;
+					LoadSound.collect.play();
+					gc.removeObj(gc.obj.get(i));
+					System.out.println("COLETOU 5 BALAS  - ESTOU COM " + ammo + " BALAS");
+				}
 
-						}
+			}
 
-						// CAIXA DE BALAS
-						else if (tempObj.getId() == ObjectId.BOX_AMMO) {
-							if (getBounds().intersects(tempObj.getBounds())) {
-								ammo+=25;
-								gc.removeObj(gc.obj.get(i));		
-								System.out.println("COLETOU CAIXA COM 25 BALAS  - ESTOU COM " +ammo+" BALAS");
-							}
+			// CAIXA DE BALAS
+			else if (tempObj.getId() == ObjectId.BOX_AMMO) {
+				if (getBounds().intersects(tempObj.getBounds())) {
+					ammo += 25;
+					LoadSound.collect.play();
+					gc.removeObj(gc.obj.get(i));
+					System.out.println("COLETOU CAIXA COM 25 BALAS  - ESTOU COM " + ammo + " BALAS");
+				}
 
-						}
+			}
 
-						// MEDKIT
-						else if (tempObj.getId() == ObjectId.MEDKIT) {
-							if (getBounds().intersects(tempObj.getBounds())) {
-								life+= 10;
-								gc.removeObj(gc.obj.get(i));					
-								System.out.println("COLETOU MEDKIT  - LIFE =  " +life);					
-							}
+			// MEDKIT
+			else if (tempObj.getId() == ObjectId.MEDKIT) {
+				if (getBounds().intersects(tempObj.getBounds())) {
+					life += 10;
+					gc.removeObj(gc.obj.get(i));
+					System.out.println("COLETOU MEDKIT  - LIFE =  " + life);
+				}
 
-						}
+			}
 
-						// ARMA
-						else if (tempObj.getId() == ObjectId.GUN) {
-							if (getBounds().intersects(tempObj.getBounds())) {
-								isGun = true;
-								gc.removeObj(gc.obj.get(i));					
-								System.out.println("COLETOU ARMA  " +isGun);		
-							}
+			// ARMA
+			else if (tempObj.getId() == ObjectId.GUN) {
+				if (getBounds().intersects(tempObj.getBounds())) {
+					isGun = true;
+					LoadSound.collect.play();
+					gc.removeObj(gc.obj.get(i));
+					System.out.println("COLETOU ARMA  " + isGun);
+				}
 
-						}
+			}
 
-						// POTION
-						else if (tempObj.getId() == ObjectId.POTION) {
-							if (getBounds().intersects(tempObj.getBounds())) {
-								potion+= 10;
-								gc.removeObj(gc.obj.get(i));					
-								System.out.println("COLETOU potion  " +potion);			
-							}
+			// POTION
+			else if (tempObj.getId() == ObjectId.POTION) {
+				if (getBounds().intersects(tempObj.getBounds())) {
+					potion += 10;
+					gc.removeObj(gc.obj.get(i));
+					System.out.println("COLETOU potion  " + potion);
+				}
 
-						}
+			}
 
-						// KEY
-						else if (tempObj.getId() == ObjectId.KEY) {
-							if (getBounds().intersects(tempObj.getBounds())) {
-								key++;
-								gc.removeObj(gc.obj.get(i));					
-								System.out.println("COLETOU UMA CHAVE");			
-							}
+			// KEY
+			else if (tempObj.getId() == ObjectId.KEY) {
+				if (getBounds().intersects(tempObj.getBounds())) {
+					key++;
+					gc.removeObj(gc.obj.get(i));
+					System.out.println("COLETOU UMA CHAVE");
+				}
 
-						}
+			}
 
-						// KEYCARD
-						else if (tempObj.getId() == ObjectId.KEY_CARD) {
-							if (getBounds().intersects(tempObj.getBounds())) {
-								key_card++;
-								gc.removeObj(gc.obj.get(i));					
-								System.out.println("COLETOU UM KeyCard");			
-							}
+			// KEYCARD
+			else if (tempObj.getId() == ObjectId.KEY_CARD) {
+				if (getBounds().intersects(tempObj.getBounds())) {
+					key_card++;
+					gc.removeObj(gc.obj.get(i));
+					System.out.println("COLETOU UM KeyCard");
+				}
 
-						}
-			
-			
+			}
+
 		}
 	}
 
@@ -189,8 +206,10 @@ public class Player extends GameObject {
 		Graphics2D g2d = (Graphics2D) g;
 
 		if (move) {
-			if (dir == 1) 		        animDir.renderAnimation(g2d, (int) x, (int) y);
-			else if (dir == -1) 	animEsq.renderAnimation(g2d, (int) x, (int) y);
+			if (dir == 1)
+				animDir.renderAnimation(g2d, (int) x, (int) y);
+			else if (dir == -1)
+				animEsq.renderAnimation(g2d, (int) x, (int) y);
 		} else {
 			animIdle.renderAnimation(g2d, (int) x, (int) y);
 		}
@@ -211,7 +230,7 @@ public class Player extends GameObject {
 
 			g.setFont(new Font("arial", Font.BOLD, 16));
 			g.setColor(new Color(255, 50, 20));
-			//g.drawString("x,y: " + x + " / " + y + " " + this.id, (int) x, (int) y);
+			// g.drawString("x,y: " + x + " / " + y + " " + this.id, (int) x, (int) y);
 		}
 	}
 
