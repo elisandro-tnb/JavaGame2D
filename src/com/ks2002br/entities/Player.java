@@ -17,6 +17,14 @@ public class Player extends GameObject {
 	private final float MAX_SPD = 10;
 	private boolean move = false;
 	private long firingTimer, firingDelay;
+	
+	private int life = 100;
+	private int ammo = 0;
+	private int potion = 0;
+	private int key = 0;
+	private int key_card = 0;
+	private boolean isGun = false;
+	
 
 	private Texturas tex = Game.getInstance();
 	private GameController gc;
@@ -100,6 +108,80 @@ public class Player extends GameObject {
 				else if (getBoundsEsq().intersects(tempObj.getBounds()))      gc.obj.get(i).setSpdX(-5);
 				else if (getBoundsDir().intersects(tempObj.getBounds()))		   gc.obj.get(i).setSpdX(5);
 			}
+			
+			
+			// COLETA DE ITENS
+
+						else if (tempObj.getId() == ObjectId.AMMO) {
+							if (getBounds().intersects(tempObj.getBounds())) {
+								ammo+=5;
+								gc.removeObj(gc.obj.get(i));					
+								System.out.println("COLETOU 5 BALAS  - ESTOU COM " +ammo+" BALAS");
+							}
+
+						}
+
+						// CAIXA DE BALAS
+						else if (tempObj.getId() == ObjectId.BOX_AMMO) {
+							if (getBounds().intersects(tempObj.getBounds())) {
+								ammo+=25;
+								gc.removeObj(gc.obj.get(i));		
+								System.out.println("COLETOU CAIXA COM 25 BALAS  - ESTOU COM " +ammo+" BALAS");
+							}
+
+						}
+
+						// MEDKIT
+						else if (tempObj.getId() == ObjectId.MEDKIT) {
+							if (getBounds().intersects(tempObj.getBounds())) {
+								life+= 10;
+								gc.removeObj(gc.obj.get(i));					
+								System.out.println("COLETOU MEDKIT  - LIFE =  " +life);					
+							}
+
+						}
+
+						// ARMA
+						else if (tempObj.getId() == ObjectId.GUN) {
+							if (getBounds().intersects(tempObj.getBounds())) {
+								isGun = true;
+								gc.removeObj(gc.obj.get(i));					
+								System.out.println("COLETOU ARMA  " +isGun);		
+							}
+
+						}
+
+						// POTION
+						else if (tempObj.getId() == ObjectId.POTION) {
+							if (getBounds().intersects(tempObj.getBounds())) {
+								potion+= 10;
+								gc.removeObj(gc.obj.get(i));					
+								System.out.println("COLETOU potion  " +potion);			
+							}
+
+						}
+
+						// KEY
+						else if (tempObj.getId() == ObjectId.KEY) {
+							if (getBounds().intersects(tempObj.getBounds())) {
+								key++;
+								gc.removeObj(gc.obj.get(i));					
+								System.out.println("COLETOU UMA CHAVE");			
+							}
+
+						}
+
+						// KEYCARD
+						else if (tempObj.getId() == ObjectId.KEY_CARD) {
+							if (getBounds().intersects(tempObj.getBounds())) {
+								key_card++;
+								gc.removeObj(gc.obj.get(i));					
+								System.out.println("COLETOU UM KeyCard");			
+							}
+
+						}
+			
+			
 		}
 	}
 

@@ -64,9 +64,9 @@ public class World {
 				else if (pixel == 0xFF0040FF)
 					Game.gc.addObj(new Gun(xx * 32, yy * 32, 1, ObjectId.GUN));
 				else if (pixel == 0xFF0046FF)
-					Game.gc.addObj(new Ammo(xx * 32, yy * 32, 2, ObjectId.BOX_AMMO));
+					Game.gc.addObj(new Ammo(xx * 32, yy * 32, 1, ObjectId.BOX_AMMO));
 				else if (pixel == 0xFF0050FF)
-					Game.gc.addObj(new Ammo(xx * 32, yy * 32, 1, ObjectId.AMMO));
+					Game.gc.addObj(new Ammo(xx * 32, yy * 32, 2, ObjectId.AMMO));
 				else if (pixel == 0xFF005AFF)
 					Game.gc.addObj(new Key(xx * 32, yy * 32, ObjectId.KEY));
 				else if (pixel == 0xFF0062FF)
