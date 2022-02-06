@@ -19,8 +19,6 @@ public class Player extends GameObject {
 	private boolean move = false;
 	private long firingTimer, firingDelay;
 
-	private int life = 100;
-	private int ammo = 0;
 	private int potion = 0;
 	private int key = 0;
 	private int key_card = 0;
@@ -70,6 +68,7 @@ public class Player extends GameObject {
 				gc.addObj(new Bullet(x + 8, y + 10, dir * 1, System.nanoTime(), gc, ObjectId.BULLET));
 				firingTimer = System.nanoTime();
 				LoadSound.shot.play();
+				ammo--;
 			}
 		}
 	}
@@ -119,9 +118,11 @@ public class Player extends GameObject {
 				} else if (getBoundsEsq().intersects(tempObj.getBounds())) {
 					gc.obj.get(i).setSpdX(-5);
 					LoadSound.hurt.play();
+					life--;
 				} else if (getBoundsDir().intersects(tempObj.getBounds())) {
 					gc.obj.get(i).setSpdX(5);
 					LoadSound.hurt.play();
+					life--;
 				}
 			}
 
@@ -131,8 +132,9 @@ public class Player extends GameObject {
 				if (getBounds().intersects(tempObj.getBounds())) {
 					ammo += 5;
 					LoadSound.collect.play();
-					gc.removeObj(gc.obj.get(i));
-					System.out.println("COLETOU 5 BALAS  - ESTOU COM " + ammo + " BALAS");
+					gc.removeObj(gc.obj.get(i));					
+					criaMensagem("COLETOU 5 BALAS");					
+				
 				}
 
 			}
@@ -143,7 +145,8 @@ public class Player extends GameObject {
 					ammo += 25;
 					LoadSound.collect.play();
 					gc.removeObj(gc.obj.get(i));
-					System.out.println("COLETOU CAIXA COM 25 BALAS  - ESTOU COM " + ammo + " BALAS");
+					criaMensagem("COLETOU 25 BALAS CX");	
+					
 				}
 
 			}
@@ -153,7 +156,7 @@ public class Player extends GameObject {
 				if (getBounds().intersects(tempObj.getBounds())) {
 					life += 10;
 					gc.removeObj(gc.obj.get(i));
-					System.out.println("COLETOU MEDKIT  - LIFE =  " + life);
+					criaMensagem("COLETOU MEDKIT");	
 				}
 
 			}
@@ -164,7 +167,7 @@ public class Player extends GameObject {
 					isGun = true;
 					LoadSound.collect.play();
 					gc.removeObj(gc.obj.get(i));
-					System.out.println("COLETOU ARMA  " + isGun);
+					criaMensagem("COLETOU ARMA");	
 				}
 
 			}
@@ -174,7 +177,7 @@ public class Player extends GameObject {
 				if (getBounds().intersects(tempObj.getBounds())) {
 					potion += 10;
 					gc.removeObj(gc.obj.get(i));
-					System.out.println("COLETOU potion  " + potion);
+					criaMensagem("COLETOU POCAO");	
 				}
 
 			}
@@ -184,7 +187,7 @@ public class Player extends GameObject {
 				if (getBounds().intersects(tempObj.getBounds())) {
 					key++;
 					gc.removeObj(gc.obj.get(i));
-					System.out.println("COLETOU UMA CHAVE");
+					criaMensagem("COLETOU CHAVE");	
 				}
 
 			}
@@ -194,12 +197,18 @@ public class Player extends GameObject {
 				if (getBounds().intersects(tempObj.getBounds())) {
 					key_card++;
 					gc.removeObj(gc.obj.get(i));
-					System.out.println("COLETOU UM KeyCard");
+					criaMensagem("COLETOU KEYCARD");	
 				}
 
 			}
 
 		}
+	}
+
+	private void criaMensagem(String message) {
+		msgOn = true;
+		msg = message;
+		
 	}
 
 	public void render(Graphics g) {

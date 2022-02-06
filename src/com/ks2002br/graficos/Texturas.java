@@ -24,6 +24,9 @@ public class Texturas {
 
 	public BufferedImage[] bat_idle = new BufferedImage[4];
 	public BufferedImage[] item = new BufferedImage[10];
+	
+	public BufferedImage[] ui_item = new BufferedImage[4];	
+	
 
 	public Texturas() {
 		CarregarImagem loader = new CarregarImagem();
@@ -94,5 +97,12 @@ public class Texturas {
 		item[7] = itemSheet.pegarSpritePosXPosY(96, 32, 32, 32); // CHAVE
 		item[8] = itemSheet.pegarSpritePosXPosY(0, 64, 32, 32); // KEYCARD RED
 		item[9] = itemSheet.pegarSpritePosXPosY(32, 64, 32, 32); // KEYCARD YELLOW
+		
+		//itens da UI
+		ui_item[0] =  itemSheet.pegarSpritePosXPosY(0, 94, 254, 34); // healt bar
+		ui_item[1] =  itemSheet.pegarSpriteColRow(1, 2, 32, 32);  // arma
+		ui_item[2] =  itemSheet.pegarSpriteColRow(4, 3, 32, 32);  //balas
+		ui_item[3] =  itemSheet.pegarSpriteColRow(3, 3, 32, 32);  //key_card_desable
+		
 	}
 }

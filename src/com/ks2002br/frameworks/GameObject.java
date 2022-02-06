@@ -20,6 +20,13 @@ public abstract class GameObject {
 	protected int type;
 	protected int dir = 1;
 	protected long timer;
+	
+	
+	protected int life = 100;
+	protected int ammo = 0;
+	protected String msg = "";
+	protected boolean msgOn = false;
+	
 
 	// CONSTRUTOR 1
 	public GameObject(float x, float y, ObjectId id) {
@@ -116,6 +123,33 @@ public abstract class GameObject {
 	}
 	
 	public void setDebug(boolean debug) {
-		this.debug = debug;
+		this.debug = debug;		
+	}
+	public int getLife() {
+		return life;
+	}
+	public void setLife(int life) {
+		this.life = life;
+	}
+	public int getAmmo() {
+		return ammo;
+	}
+	public void setAmmo(int ammo) {
+		this.ammo = ammo;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	public boolean isMsgOn() {
+		return msgOn;
+	}
+	public void setMsgOn(boolean msgOn) {
+		this.msgOn = msgOn;
 	}	
+	
+	
+	
 }

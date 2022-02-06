@@ -34,6 +34,7 @@ public class Game extends Canvas implements Runnable {
 
 	// private TestAnim testAnim;
 	private InforDebug  dbg;
+	private UI ui;
 
 	// CONTRUTOR DA CLASSE
 	public Game() {
@@ -57,6 +58,8 @@ public class Game extends Canvas implements Runnable {
 		world = new World(level, gc);
 		world.carregarLevel();
 		cam = new Camera(0, 0);
+		
+		ui = new UI(gc);
 		
 		LoadSound.bgm.playLoop();
 		
@@ -144,6 +147,7 @@ public class Game extends Canvas implements Runnable {
 		}
 		// testAnim.tick(null);
 		dbg.update();
+		ui.tick();
 	}
 
 	private void render() {
@@ -170,6 +174,7 @@ public class Game extends Canvas implements Runnable {
 
 		// testAnim.render(g2d);
 		dbg.render(g2d);
+		ui.render(g2d);
 
 		// FINAL DO OBJETOS A SEREM DESENHADOS
 		bs.show(); // MOSTRAR TUDO QUE O PINTOR DESENHOU
