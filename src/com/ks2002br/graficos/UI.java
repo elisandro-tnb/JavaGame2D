@@ -38,7 +38,7 @@ public class UI {
 
 		try {
 
-			minhaFonteArcade_I  = Font.createFont(Font.TRUETYPE_FONT, new File("res/ARCADE_I.TTF"));
+			minhaFonteArcade_I = Font.createFont(Font.TRUETYPE_FONT, new File("res/ARCADE_I.TTF"));
 			minhaFonteArcade_N = Font.createFont(Font.TRUETYPE_FONT, new File("res/ARCADE_N.TTF"));
 			minhaFonteArcade_R = Font.createFont(Font.TRUETYPE_FONT, new File("res/ARCADE_R.TTF"));
 
@@ -67,6 +67,12 @@ public class UI {
 			if (obj.getId() == ObjectId.PLAYER) {
 
 				life = obj.getLife();
+				
+				if(life <=0) {
+					gc.obj.remove(i);
+				}				
+				
+				
 				ammo = obj.getAmmo();
 				msg = obj.getMsg();
 				msgOn = obj.isMsgOn();

@@ -23,6 +23,9 @@ public class Player extends GameObject {
 	private int key = 0;
 	private int key_card = 0;
 	private boolean isGun = false;
+	
+	private final int MAX_LIFE = 100;
+	
 
 	private Texturas tex = Game.getInstance();
 	private GameController gc;
@@ -62,7 +65,7 @@ public class Player extends GameObject {
 		startAnim();
 		isCollision(obj);
 
-		if (shooting) {
+		if (shooting && isGun && ammo >=1) {
 			long elapsed = (System.nanoTime() - firingTimer) / 1000000;
 			if (elapsed > firingDelay) {
 				gc.addObj(new Bullet(x + 8, y + 10, dir * 1, System.nanoTime(), gc, ObjectId.BULLET));
@@ -118,11 +121,13 @@ public class Player extends GameObject {
 				} else if (getBoundsEsq().intersects(tempObj.getBounds())) {
 					gc.obj.get(i).setSpdX(-5);
 					LoadSound.hurt.play();
-					life--;
+					life-=5;
+					verificaLife();
 				} else if (getBoundsDir().intersects(tempObj.getBounds())) {
 					gc.obj.get(i).setSpdX(5);
 					LoadSound.hurt.play();
-					life--;
+					life-=5;
+					verificaLife();
 				}
 			}
 
@@ -142,10 +147,10 @@ public class Player extends GameObject {
 			// CAIXA DE BALAS
 			else if (tempObj.getId() == ObjectId.BOX_AMMO) {
 				if (getBounds().intersects(tempObj.getBounds())) {
-					ammo += 25;
+					ammo += 15;
 					LoadSound.collect.play();
 					gc.removeObj(gc.obj.get(i));
-					criaMensagem("COLETOU 25 BALAS CX");	
+					criaMensagem("COLETOU 15 BALAS CX");	
 					
 				}
 
@@ -203,6 +208,19 @@ public class Player extends GameObject {
 			}
 
 		}
+	}
+
+	private void verificaLife() {
+	
+		if(life >=100) {
+			life=MAX_LIFE;
+		}
+		else if(life <=0){
+			criaMensagem(" - GAME OVER - ");
+			life = 0;
+		}
+		
+		
 	}
 
 	private void criaMensagem(String message) {
