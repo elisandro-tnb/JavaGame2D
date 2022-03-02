@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import com.ks2002br.entities.Enemy;
 import com.ks2002br.entities.Player;
 import com.ks2002br.entities.itens.Ammo;
+import com.ks2002br.entities.itens.CardReader;
+import com.ks2002br.entities.itens.FlagExit;
 import com.ks2002br.entities.itens.Gun;
 import com.ks2002br.entities.itens.Key;
 import com.ks2002br.entities.itens.KeyCard;
@@ -23,6 +25,8 @@ public class World {
 	private BufferedImage level;
 	private GameController gc;
 	public static int w, h;
+	
+	private static int x1,y1;
 
 	public World(BufferedImage level, GameController gc) {
 		this.level = level;
@@ -30,12 +34,12 @@ public class World {
 		w = level.getWidth();
 		h = level.getHeight();
 
-		//System.out.println("[DEBUG WORLD] MAPA x,y = " + w * 32 + " , " + h * 32);
+	//	System.out.println("[DEBUG WORLD] MAPA x,y = " + w + " , " + h );
 	}
 
 	public void carregarLevel() {
-		for (int xx = 0; xx < h; xx++) {
-			for (int yy = 0; yy < w; yy++) {
+		for (int xx = 0; xx < w; xx++) {
+			for (int yy = 0; yy < h; yy++) {			
 				int pixel = level.getRGB(xx, yy);
 				if (pixel == 0xFFFFFFFF)
 					Game.gc.addObj(new Bloco(xx * 32, yy * 32, 0, ObjectId.BLOCO)); // GRAMA
@@ -46,8 +50,11 @@ public class World {
 				else if (pixel == 0xFF7C3C11)
 					Game.gc.addObj(new Bloco(xx * 32, yy * 32, 3, ObjectId.BLOCO)); // TERRA DIR
 
-				else if (pixel == 0xFFFF0000)
-					Game.gc.addObj(new Player(xx * 32, yy * 32, ObjectId.PLAYER, gc));
+				else if (pixel == 0xFFFF0000) {
+					x1=xx*32;
+				    y1=yy*32;
+				}
+					
 				else if (pixel == 0xFFFF6A00)
 					Game.gc.addObj(new Enemy(xx * 32, yy * 32, ObjectId.ENEMY));
 				else if (pixel == 0xFF0026FF)
@@ -73,7 +80,21 @@ public class World {
 					Game.gc.addObj(new KeyCard(xx * 32, yy * 32, 1, ObjectId.KEY_CARD));
 				else if (pixel == 0xFF006EFF)
 					Game.gc.addObj(new KeyCard(xx * 32, yy * 32, 2, ObjectId.KEY_CARD));
+				
+				
+				else if (pixel == 0xFFDDEEFF)
+					Game.gc.addObj(new Bloco(xx * 32, yy * 32, 4, ObjectId.BLOCO)); // BLOCO_BOX
+				else if (pixel == 0xFFAAAA00)
+					Game.gc.addObj(new CardReader(xx * 32, yy * 32, ObjectId.CARD_READER)); // CARD_READER
+				else if (pixel == 0xFFAABBCC)
+					Game.gc.addObj(new FlagExit(xx * 32, yy * 32,  ObjectId.FLAG_EXIT)); // FLAG_EXIT
+				
+				
+				
 			}
 		}
+		
+		Game.gc.addObj(new Player(x1, y1, ObjectId.PLAYER, gc));
+		
 	}
 }

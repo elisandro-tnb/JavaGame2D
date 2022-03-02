@@ -26,7 +26,7 @@ public class Teclado extends KeyAdapter {
 				if (tecla == KeyEvent.VK_A) 	objTemp.setSpdX(-5);
 				if (tecla == KeyEvent.VK_W  && !objTemp.isJumping())	{
 					objTemp.setJumping(true);
-					objTemp.setSpdY(-15);
+					objTemp.setSpdY(-10);
 				}
 		    	
 				if (tecla == KeyEvent.VK_SPACE)	objTemp.setShooting(true);

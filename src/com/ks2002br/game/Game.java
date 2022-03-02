@@ -18,7 +18,7 @@ public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
 	public static JFrame frame;
-	public static final int LARGURA = 320, ALTURA = 320;
+	public static final int LARGURA = 320, ALTURA = 200;
 	public static final int ESCALA = 2;
 
 	private Thread thread;

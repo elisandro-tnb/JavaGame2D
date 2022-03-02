@@ -13,7 +13,7 @@ public class Texturas {
 	private BufferedImage bloco_tex, enemy_tex, player_tex;
 	private BufferedImage bat_tex, item_tex;
 
-	public BufferedImage[] block = new BufferedImage[4]; 
+	public BufferedImage[] block = new BufferedImage[5]; 
 	public BufferedImage[] enemy = new BufferedImage[2]; 
 	public BufferedImage[] player_idle = new BufferedImage[2]; 
 
@@ -23,7 +23,7 @@ public class Texturas {
 	public BufferedImage[] playerRight = new BufferedImage[8]; 
 
 	public BufferedImage[] bat_idle = new BufferedImage[4];
-	public BufferedImage[] item = new BufferedImage[10];
+	public BufferedImage[] item = new BufferedImage[12];
 	
 	public BufferedImage[] ui_item = new BufferedImage[4];	
 	
@@ -59,6 +59,9 @@ public class Texturas {
 		block[1] = blockSheet.pegarSpriteColRow(6, 1, 32, 32); // TERRA ESQ
 		block[2] = blockSheet.pegarSpriteColRow(5, 1, 32, 32); // TERRA CENTRAL
 		block[3] = blockSheet.pegarSpriteColRow(4, 1, 32, 32); // TERRA DIR
+		
+		block[4] = blockSheet.pegarSpriteColRow(1, 2, 32, 32); // BLOCO CAIXA
+		
 		// ENEMY
 		enemy[0] = enemySheet.pegarSpriteColRow(1, 1, 32, 64); // Lado 1
 		enemy[1] = enemySheet.pegarSpriteColRow(2, 1, 32, 64); // Lado 2
@@ -97,6 +100,9 @@ public class Texturas {
 		item[7] = itemSheet.pegarSpritePosXPosY(96, 32, 32, 32); // CHAVE
 		item[8] = itemSheet.pegarSpritePosXPosY(0, 64, 32, 32); // KEYCARD RED
 		item[9] = itemSheet.pegarSpritePosXPosY(32, 64, 32, 32); // KEYCARD YELLOW
+		
+		item[10] = itemSheet.pegarSpritePosXPosY(207, 0, 48, 40); //CARD_READER
+		item[11] = itemSheet.pegarSpritePosXPosY(223, 42, 32, 16); //FLAG EXIT
 		
 		//itens da UI
 		ui_item[0] =  itemSheet.pegarSpritePosXPosY(0, 94, 254, 34); // healt bar
