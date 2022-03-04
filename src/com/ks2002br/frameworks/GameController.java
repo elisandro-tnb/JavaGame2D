@@ -28,7 +28,7 @@ public class GameController {
 			}
 		}
 
-		//System.out.println("[DEBUG GC - Bullets in Game = " + contador);
+		//System.out.println("[DEBUG GC - OBJ IN GAME  = " + obj.size());
 
 	}
 

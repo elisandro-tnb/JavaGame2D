@@ -206,6 +206,14 @@ public class Player extends GameObject {
 				}
 
 			}
+			
+			//FLAG EXIT
+			else if (tempObj.getId() == ObjectId.FLAG_EXIT) {
+				if (getBounds().intersects(tempObj.getBounds())) {
+						Game.clearLevel();
+				}
+
+			}
 
 		}
 	}

@@ -108,7 +108,7 @@ public class UI {
 		if (msgOn) {
 			g.setColor(cor_vermelho);
 			g.setFont(minhaFonteArcade_I.deriveFont(18f));
-			g.drawString(msg, 80, 540);
+			g.drawString(msg, 100, 250);
 		}
 	}
 }

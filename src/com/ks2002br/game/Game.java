@@ -27,14 +27,19 @@ public class Game extends Canvas implements Runnable {
 
 	private final BufferedImage image;
 	public static GameController gc;
-	private BufferedImage level = null;
-	private World world;
-	private Camera cam;
+	private static BufferedImage level = null;
+	private static World world;
+	private static Camera cam;
 	private static Texturas tex;
 
 	// private TestAnim testAnim;
 	private InforDebug  dbg;
 	private UI ui;
+	
+	private static CarregarImagem mapa;
+	
+	
+	private static int CUR_LEVEL = 0, MAX_LEVEL = 4;
 
 	// CONTRUTOR DA CLASSE
 	public Game() {
@@ -48,19 +53,39 @@ public class Game extends Canvas implements Runnable {
 		gc = new GameController();
 		addKeyListener(new Teclado(gc));
 		// OBJETOS AQUI
-		CarregarImagem mapa = new CarregarImagem();
+		mapa = new CarregarImagem();
 		tex = new Texturas();
 
 		// testAnim = new TestAnim(40, 60, null);
 		dbg = new InforDebug(gc);
 
+		loadLevel();
+		
+		/*
 		level = mapa.pegarImagem("/mapa-01.png");
 		world = new World(level, gc);
 		world.carregarLevel();
 		cam = new Camera(0, 0);
-		
+		LoadSound.bgm.playLoop();
+		*/
 		ui = new UI(gc);
 		
+	
+		
+	}
+
+	private static void loadLevel() {
+		
+		CUR_LEVEL++;
+
+		if(CUR_LEVEL > MAX_LEVEL) CUR_LEVEL = 1;
+		
+		String newWorld = "/mapa-0"+CUR_LEVEL+".png";
+				
+		level = mapa.pegarImagem(newWorld);
+		world = new World(level, gc);
+		world.carregarLevel();
+		cam = new Camera(0, 0);
 		LoadSound.bgm.playLoop();
 		
 	}
@@ -183,5 +208,13 @@ public class Game extends Canvas implements Runnable {
 
 	public static Texturas getInstance() {
 		return tex;
+	}
+
+	public static void clearLevel() {
+	
+		LoadSound.bgm.stop();
+		gc.obj.clear();
+		loadLevel();
+		
 	}
 }
