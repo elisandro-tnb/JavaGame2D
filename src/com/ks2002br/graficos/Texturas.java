@@ -27,6 +27,8 @@ public class Texturas {
 	
 	public BufferedImage[] ui_item = new BufferedImage[4];	
 	
+	public BufferedImage[] laser_door = new BufferedImage[3];	
+	
 
 	public Texturas() {
 		CarregarImagem loader = new CarregarImagem();
@@ -108,7 +110,12 @@ public class Texturas {
 		ui_item[0] =  itemSheet.pegarSpritePosXPosY(0, 94, 254, 34); // healt bar
 		ui_item[1] =  itemSheet.pegarSpriteColRow(1, 2, 32, 32);  // arma
 		ui_item[2] =  itemSheet.pegarSpriteColRow(4, 3, 32, 32);  //balas
-		ui_item[3] =  itemSheet.pegarSpriteColRow(3, 3, 32, 32);  //key_card_desable
+		ui_item[3] =  itemSheet.pegarSpriteColRow(2, 3, 32, 32);  //key_card
+		
+		
+		laser_door[0] = blockSheet.pegarSpriteColRow(2, 2, 32, 32); // BLOCO LASER SUP
+		laser_door[1] = blockSheet.pegarSpriteColRow(3, 2, 32, 32); // BLOCO LASER INF
+		laser_door[2] = blockSheet.pegarSpriteColRow(4, 2, 32, 32); // BLOCO LASER
 		
 	}
 }

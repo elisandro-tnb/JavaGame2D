@@ -12,6 +12,10 @@ public class GameController {
 	
 	public LinkedList<GameObject> obj = new LinkedList<>();
 	private GameObject tempObj;
+	
+	private boolean key_card;
+	private boolean laser_off;
+	
 
 	public void update() {
 		int contador = 0;
@@ -27,9 +31,7 @@ public class GameController {
 				contador++;
 			}
 		}
-
 		//System.out.println("[DEBUG GC - OBJ IN GAME  = " + obj.size());
-
 	}
 
 	public void draw(Graphics g) {
@@ -54,5 +56,21 @@ public class GameController {
 
 	public void setDebug(boolean debug) {
 		this.debug = debug;
+	}
+
+	public boolean isKey_card() {
+		return key_card;
+	}
+
+	public void setKey_card(boolean key_card) {
+		this.key_card = key_card;
+	}
+
+	public boolean isLaser_off() {
+		return laser_off;
+	}
+
+	public void setLaser_off(boolean laser_off) {
+		this.laser_off = laser_off;
 	}
 }

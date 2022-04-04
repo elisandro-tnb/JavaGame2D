@@ -3,10 +3,12 @@
  */
 package com.ks2002br.graficos;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
@@ -90,6 +92,8 @@ public class UI {
 	}
 
 	public void render(Graphics g) {
+		
+		Graphics2D g2d = (Graphics2D) g;
 
 		// BARRA DE VIDA
 		g.setColor(Color.green); // SETA A COR
@@ -103,7 +107,15 @@ public class UI {
 		g.setFont(minhaFonteArcade_R.deriveFont(14f));
 		g.drawString(" x" + ammo, 290, 42);
 
-		g.drawImage(tex.ui_item[3], 380, 20, null); // KeyCardDisable
+		
+		if(!gc.isKey_card()) {
+			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f));
+			g.drawImage(tex.ui_item[3], 380, 20, null); // KeyCard
+		}else {
+			g.drawImage(tex.ui_item[3], 380, 20, null); // KeyCard
+		}
+		
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
 		if (msgOn) {
 			g.setColor(cor_vermelho);

@@ -19,9 +19,6 @@ public class Player extends GameObject {
 	private boolean move = false;
 	private long firingTimer, firingDelay;
 
-	private int potion = 0;
-	private int key = 0;
-	private int key_card = 0;
 	private boolean isGun = false;
 	
 	private final int MAX_LIFE = 100;
@@ -180,7 +177,7 @@ public class Player extends GameObject {
 			// POTION
 			else if (tempObj.getId() == ObjectId.POTION) {
 				if (getBounds().intersects(tempObj.getBounds())) {
-					potion += 10;
+				//	potion += 10;
 					gc.removeObj(gc.obj.get(i));
 					criaMensagem("COLETOU POCAO");	
 				}
@@ -190,7 +187,7 @@ public class Player extends GameObject {
 			// KEY
 			else if (tempObj.getId() == ObjectId.KEY) {
 				if (getBounds().intersects(tempObj.getBounds())) {
-					key++;
+					//key++;
 					gc.removeObj(gc.obj.get(i));
 					criaMensagem("COLETOU CHAVE");	
 				}
@@ -200,9 +197,21 @@ public class Player extends GameObject {
 			// KEYCARD
 			else if (tempObj.getId() == ObjectId.KEY_CARD) {
 				if (getBounds().intersects(tempObj.getBounds())) {
-					key_card++;
+					gc.setKey_card(true);
 					gc.removeObj(gc.obj.get(i));
 					criaMensagem("COLETOU KEYCARD");	
+				}
+
+			}
+			
+			// CARD READER
+			else if (tempObj.getId() == ObjectId.CARD_READER) {
+				if (getBounds().intersects(tempObj.getBounds())) {
+					if(!gc.isKey_card())	criaMensagem("ACESSO NEGADO - KEYCARD ?");	
+					else {
+						gc.setLaser_off(true);
+						criaMensagem("KEY CARD OK");	
+					}
 				}
 
 			}

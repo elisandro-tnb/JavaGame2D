@@ -13,6 +13,7 @@ import com.ks2002br.entities.itens.FlagExit;
 import com.ks2002br.entities.itens.Gun;
 import com.ks2002br.entities.itens.Key;
 import com.ks2002br.entities.itens.KeyCard;
+import com.ks2002br.entities.itens.LaserDoor;
 import com.ks2002br.entities.itens.Medkit;
 import com.ks2002br.entities.itens.Potion;
 import com.ks2002br.frameworks.Bloco;
@@ -89,7 +90,13 @@ public class World {
 				else if (pixel == 0xFFAABBCC)
 					Game.gc.addObj(new FlagExit(xx * 32, yy * 32,  ObjectId.FLAG_EXIT)); // FLAG_EXIT
 				
-				
+				//LASER DOOR
+				else if (pixel == 0xFFFF00FF)
+					Game.gc.addObj(new LaserDoor(xx * 32, yy * 32, 6,  gc, ObjectId.BLOCO)); // BLOCO LASER SUP
+				else if (pixel == 0xFFFF00EE)
+					Game.gc.addObj(new LaserDoor(xx * 32, yy * 32, 7, gc, ObjectId.BLOCO)); // BLOCO LASER
+				else if (pixel == 0xFFFF00DD)
+					Game.gc.addObj(new LaserDoor(xx * 32, yy * 32, 8, gc, ObjectId.BLOCO)); // BLOCO LASER INF
 				
 			}
 		}

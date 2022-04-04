@@ -214,6 +214,8 @@ public class Game extends Canvas implements Runnable {
 	
 		LoadSound.bgm.stop();
 		gc.obj.clear();
+		gc.setKey_card(false);
+		gc.setLaser_off(false);
 		loadLevel();
 		
 	}
