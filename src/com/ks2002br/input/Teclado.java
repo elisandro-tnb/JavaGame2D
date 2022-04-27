@@ -5,6 +5,8 @@ package com.ks2002br.input;
  */
 import java.awt.event.*;
 import com.ks2002br.frameworks.*;
+import com.ks2002br.game.Game;
+import com.ks2002br.game.Menu;
 
 public class Teclado extends KeyAdapter {
 
@@ -15,6 +17,7 @@ public class Teclado extends KeyAdapter {
 	}
 
 	public void keyPressed(KeyEvent e) {
+		
 		int tecla = e.getKeyCode();
 
 		for (int i = 0; i < gc.obj.size(); i++) {
@@ -35,7 +38,16 @@ public class Teclado extends KeyAdapter {
 					else 	gc.setDebug(false);			
 				}
 			}
+		} //Fechando o for
+		
+		if (tecla == KeyEvent.VK_UP)           Menu.up = true;
+		if (tecla == KeyEvent.VK_DOWN)     Menu.down = true;
+		if (tecla == KeyEvent.VK_ENTER)     Menu.ok = true;
+		if (tecla == KeyEvent.VK_ESCAPE) {
+			if(Game.gameState !="MENU") Game.gameState = "MENU";
+			Menu.pause=true;
 		}
+		
 	}
 
 	public void keyReleased(KeyEvent e) {

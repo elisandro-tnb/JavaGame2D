@@ -33,13 +33,16 @@ public class Game extends Canvas implements Runnable {
 	private static Texturas tex;
 
 	// private TestAnim testAnim;
-	private InforDebug  dbg;
+	private InforDebug dbg;
 	private UI ui;
 	
+	private Menu mn;
+
 	private static CarregarImagem mapa;
-	
-	
+
 	private static int CUR_LEVEL = 0, MAX_LEVEL = 4;
+
+	public static String gameState = "MENU";
 
 	// CONTRUTOR DA CLASSE
 	public Game() {
@@ -58,36 +61,34 @@ public class Game extends Canvas implements Runnable {
 
 		// testAnim = new TestAnim(40, 60, null);
 		dbg = new InforDebug(gc);
+		
 
 		loadLevel();
-		
+
 		/*
-		level = mapa.pegarImagem("/mapa-01.png");
-		world = new World(level, gc);
-		world.carregarLevel();
-		cam = new Camera(0, 0);
-		LoadSound.bgm.playLoop();
-		*/
+		 * level = mapa.pegarImagem("/mapa-01.png"); world = new World(level, gc);
+		 * world.carregarLevel(); cam = new Camera(0, 0); LoadSound.bgm.playLoop();
+		 */
 		ui = new UI(gc);
-		
-	
-		
+		mn = new Menu();
+
 	}
 
 	private static void loadLevel() {
-		
+
 		CUR_LEVEL++;
 
-		if(CUR_LEVEL > MAX_LEVEL) CUR_LEVEL = 1;
-		
-		String newWorld = "/mapa-0"+CUR_LEVEL+".png";
-				
+		if (CUR_LEVEL > MAX_LEVEL)
+			CUR_LEVEL = 1;
+
+		String newWorld = "/mapa-0" + CUR_LEVEL + ".png";
+
 		level = mapa.pegarImagem(newWorld);
 		world = new World(level, gc);
 		world.carregarLevel();
 		cam = new Camera(0, 0);
 		LoadSound.bgm.playLoop();
-		
+
 	}
 
 	private void initFrame() {
@@ -150,29 +151,37 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void tick() {
-		gc.update();
 
-		for (int i = 0; i < gc.obj.size(); i++) {
-			if (gc.obj.get(i).getId() == ObjectId.PLAYER) {
-				cam.tick(gc.obj.get(i));
-			}
+		if (gameState == "MENU") {			
+			mn.tick();
+			
+		} else if (gameState == "NORMAL") {
+			
+			gc.update();
 
-			if (gc.obj.get(i).getId() == ObjectId.BULLET) {
-				long now = System.nanoTime();
+			for (int i = 0; i < gc.obj.size(); i++) {
+				if (gc.obj.get(i).getId() == ObjectId.PLAYER) {
+					cam.tick(gc.obj.get(i));
+				}
 
-				GameObject objTemp = gc.obj.get(i);
+				if (gc.obj.get(i).getId() == ObjectId.BULLET) {
+					long now = System.nanoTime();
 
-				long last = objTemp.isTimer();
-				long live = (now - last) / 1000000;
+					GameObject objTemp = gc.obj.get(i);
 
-				if (live >= 4000) {
-					gc.removeObj(gc.obj.get(i));					
+					long last = objTemp.isTimer();
+					long live = (now - last) / 1000000;
+
+					if (live >= 4000) {
+						gc.removeObj(gc.obj.get(i));
+					}
 				}
 			}
+			// testAnim.tick(null);
+			dbg.update();
+			ui.tick();
 		}
-		// testAnim.tick(null);
-		dbg.update();
-		ui.tick();
+
 	}
 
 	private void render() {
@@ -200,6 +209,11 @@ public class Game extends Canvas implements Runnable {
 		// testAnim.render(g2d);
 		dbg.render(g2d);
 		ui.render(g2d);
+		
+		
+		if(gameState == "MENU") mn.render(g2d);	
+		
+		
 
 		// FINAL DO OBJETOS A SEREM DESENHADOS
 		bs.show(); // MOSTRAR TUDO QUE O PINTOR DESENHOU
@@ -211,12 +225,12 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void clearLevel() {
-	
+
 		LoadSound.bgm.stop();
 		gc.obj.clear();
 		gc.setKey_card(false);
 		gc.setLaser_off(false);
 		loadLevel();
-		
+
 	}
 }
