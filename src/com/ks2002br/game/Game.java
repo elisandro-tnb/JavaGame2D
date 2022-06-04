@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import com.ks2002br.frameworks.*;
 import com.ks2002br.graficos.*;
+import com.ks2002br.input.Mouse;
 import com.ks2002br.input.Teclado;
 import com.ks2002br.sound.LoadSound;
 import com.ks2002br.world.*;
@@ -37,6 +38,7 @@ public class Game extends Canvas implements Runnable {
 	private UI ui;
 	
 	private Menu mn;
+	private Mouse mouse;
 
 	private static CarregarImagem mapa;
 
@@ -54,7 +56,10 @@ public class Game extends Canvas implements Runnable {
 
 	private void startGame() {
 		gc = new GameController();
+		mouse = new Mouse();
 		addKeyListener(new Teclado(gc));
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 		// OBJETOS AQUI
 		mapa = new CarregarImagem();
 		tex = new Texturas();
@@ -214,6 +219,9 @@ public class Game extends Canvas implements Runnable {
 		if(gameState == "MENU") mn.render(g2d);	
 		
 		
+		//System.out.println("Mouse : "+mouse.getMouseX() +" / "+mouse.getMouseY()+"   Button :  "+mouse.getMouseButton());
+		
+		g2d.drawString("Mouse : "+Mouse.getMouseX() +" / "+Mouse.getMouseY(), 70,370);
 
 		// FINAL DO OBJETOS A SEREM DESENHADOS
 		bs.show(); // MOSTRAR TUDO QUE O PINTOR DESENHOU

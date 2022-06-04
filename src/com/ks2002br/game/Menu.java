@@ -8,6 +8,7 @@ import java.awt.*;
 import java.io.*;
 
 import com.ks2002br.graficos.Texturas;
+import com.ks2002br.input.Mouse;
 
 public class Menu {
 	
@@ -19,12 +20,17 @@ public class Menu {
 	private Texturas tex = Game.getInstance();
 	private Font  minhaFonteArcade_N;
 	
+	private int mx,my,mb,wt;
+		
 	public Menu() {	
 		try {
 			minhaFonteArcade_N = Font.createFont(Font.TRUETYPE_FONT, new File("res/ARCADE_N.TTF"));
 		} catch (FontFormatException | IOException e) {			
 			System.out.println("[Debug MENU ] Deu ruim ao carregar a fonte");
 		}
+		
+		wt = Game.LARGURA / 2 ;
+		
 	}
 	
 	public void tick() {
@@ -46,7 +52,41 @@ public class Menu {
 				Game.gameState="NORMAL";
 				pause = false;
 			}else if (option[curOpt] == "Sair")		System.exit(0);				
+		}		
+		
+		//MOUSE
+		mx = Mouse.getMouseX();
+		my = Mouse.getMouseY();
+		mb = Mouse.getMouseButton();		
+		
+		
+		//LOGICA DO MOUSE /MENU
+		
+		if(mx >= wt + 70 && mx <= wt+235 &&
+				        my >= 145 && my <= 145 + 35) {
+			curOpt=0;
+			  if(mb==1)  Game.gameState = "NORMAL";
+			
+			//System.out.println("MOUSE ESTA NA AREA DA OPCAO JOGAR");
 		}
+		
+		else if(mx >= wt + 70 && mx <= wt+235 &&
+		        my >= 185 && my <= 185 + 35) {
+			curOpt=1;
+			//System.out.println("MOUSE ESTA NA AREA DA OPCAO CARREGAR");
+		}
+		
+		else if(mx >= wt + 70 && mx <= wt+235 &&
+		        my >= 225 && my <= 225 + 35) {
+			    curOpt=2	;
+			    if(mb==1) System.exit(0);
+			//System.out.println("MOUSE ESTA NA AREA DA OPCAO SAIR");
+		}
+		
+		
+		
+		
+		
 		
 	}
 	
@@ -76,6 +116,13 @@ public class Menu {
 		if(curOpt == 0) g2d.drawImage(tex.item[4] , (Game.LARGURA / 2) + 40, 155,  null); 
 		if(curOpt == 1) g2d.drawImage(tex.item[4] , (Game.LARGURA / 2) + 40, 195,  null);
 		if(curOpt == 2) g2d.drawImage(tex.item[4] , (Game.LARGURA / 2) + 40,  235, null);		
+		
+		
+		//BORDAS BOTAO MOUSE
+	//	g2d.setColor(new Color(0,255,255));
+	//	g2d.drawRect(wt + 70,145,155,35);
+	//	g2d.drawRect(wt + 70,185,155,35);
+	//	g2d.drawRect(wt + 70,225,155,35);			
 		
 	}
 	
