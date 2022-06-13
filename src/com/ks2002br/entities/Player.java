@@ -233,8 +233,9 @@ public class Player extends GameObject {
 			life=MAX_LIFE;
 		}
 		else if(life <=0){
-			criaMensagem(" - GAME OVER - ");
+			//criaMensagem(" - GAME OVER - ");
 			life = 0;
+			Game.gameState = "GAME_OVER";
 		}
 		
 		

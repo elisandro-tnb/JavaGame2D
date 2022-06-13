@@ -25,6 +25,11 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private boolean isRunning = true;
 	private int frames = 0;
+	
+	//GAME OVER - RESTART
+	private boolean showMessageGameOver;
+	private int framesGameOver;
+	public static boolean restartGame;
 
 	private final BufferedImage image;
 	public static GameController gc;
@@ -42,7 +47,7 @@ public class Game extends Canvas implements Runnable {
 
 	private static CarregarImagem mapa;
 
-	private static int CUR_LEVEL = 0, MAX_LEVEL = 4;
+	private static int CUR_LEVEL = 2, MAX_LEVEL = 4;
 
 	public static String gameState = "MENU";
 
@@ -186,6 +191,31 @@ public class Game extends Canvas implements Runnable {
 			dbg.update();
 			ui.tick();
 		}
+		
+		
+		//GAMEOVER
+		else if (gameState == "GAME_OVER") {
+			framesGameOver++;
+			if(framesGameOver >= 35) {
+				framesGameOver=0;
+				if(showMessageGameOver) {
+					showMessageGameOver = false;
+				}else {
+					showMessageGameOver=true;
+				}
+			}
+			
+			if(restartGame) {
+				restartGame = false;
+				Game.gameState = "NORMAL";
+				CUR_LEVEL = 0;
+				clearLevel();
+			}
+			
+			
+		}
+		
+		
 
 	}
 
@@ -218,10 +248,24 @@ public class Game extends Canvas implements Runnable {
 		
 		if(gameState == "MENU") mn.render(g2d);	
 		
+		else if (gameState == "GAME_OVER") {
+			g2d.setColor(new Color(0,0,0,100));
+			g2d.fillRect(0, 0, LARGURA * ESCALA, ALTURA*ESCALA);
+			g.setFont(new Font("arial",Font.BOLD, 36));
+			g.setColor(Color.RED);
+			g.drawString("GAME OVER ",(LARGURA * ESCALA) /2 -100 ,(ALTURA * ESCALA) /2 -10 );
+			
+			if(showMessageGameOver) {
+				g.setFont(new Font("arial",Font.BOLD, 20));
+				g.setColor(Color.WHITE);
+				g.drawString(">> APERTE ENTER PARA RE-INICIAR ",(LARGURA * ESCALA) /2 -170 ,(ALTURA * ESCALA) /2 +20 );
+			}
+		}
+		
 		
 		//System.out.println("Mouse : "+mouse.getMouseX() +" / "+mouse.getMouseY()+"   Button :  "+mouse.getMouseButton());
 		
-		g2d.drawString("Mouse : "+Mouse.getMouseX() +" / "+Mouse.getMouseY(), 70,370);
+		//g2d.drawString("Mouse : "+Mouse.getMouseX() +" / "+Mouse.getMouseY(), 70,370);
 
 		// FINAL DO OBJETOS A SEREM DESENHADOS
 		bs.show(); // MOSTRAR TUDO QUE O PINTOR DESENHOU

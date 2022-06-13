@@ -42,7 +42,11 @@ public class Teclado extends KeyAdapter {
 		
 		if (tecla == KeyEvent.VK_UP)           Menu.up = true;
 		if (tecla == KeyEvent.VK_DOWN)     Menu.down = true;
-		if (tecla == KeyEvent.VK_ENTER)     Menu.ok = true;
+		if (tecla == KeyEvent.VK_ENTER)  {
+			Menu.ok = true;
+			if(Game.gameState == "GAME_OVER")
+				Game.restartGame = true;			
+		}
 		if (tecla == KeyEvent.VK_ESCAPE) {
 			if(Game.gameState !="MENU") Game.gameState = "MENU";
 			Menu.pause=true;
