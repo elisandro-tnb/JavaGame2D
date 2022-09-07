@@ -5,6 +5,7 @@ package com.ks2002br.world;
  */
 import java.awt.image.BufferedImage;
 
+import com.ks2002br.entities.Boss;
 import com.ks2002br.entities.Enemy;
 import com.ks2002br.entities.Player;
 import com.ks2002br.entities.itens.Ammo;
@@ -97,7 +98,8 @@ public class World {
 					Game.gc.addObj(new LaserDoor(xx * 32, yy * 32, 7, gc, ObjectId.BLOCO)); // BLOCO LASER
 				else if (pixel == 0xFFFF00DD)
 					Game.gc.addObj(new LaserDoor(xx * 32, yy * 32, 8, gc, ObjectId.BLOCO)); // BLOCO LASER INF
-				
+				else if (pixel == 0xFFBAABBA)
+					Game.gc.addObj(new Boss(xx * 32, yy * 32, 128,128, gc, ObjectId.BOSS));
 			}
 		}
 		

@@ -38,6 +38,19 @@ public class Teclado extends KeyAdapter {
 					else 	gc.setDebug(false);			
 				}
 			}
+			
+			
+			//Controle debug boss manual
+			if (objTemp.getId() == ObjectId.BOSS) {
+				
+				if (tecla == KeyEvent.VK_RIGHT) 	objTemp.setSpdX(2);
+				if (tecla == KeyEvent.VK_LEFT) 	    objTemp.setSpdX(-2);
+				if (tecla == KeyEvent.VK_UP)      	objTemp.setSpdY(-2);
+				if (tecla == KeyEvent.VK_DOWN) 	objTemp.setSpdY(2);			
+			}
+			
+			
+			
 		} //Fechando o for
 		
 		if (tecla == KeyEvent.VK_UP)           Menu.up = true;
@@ -64,6 +77,14 @@ public class Teclado extends KeyAdapter {
 				if (tecla == KeyEvent.VK_A)		objTemp.setSpdX(0);
 				if (tecla == KeyEvent.VK_SPACE)	objTemp.setShooting(false);
 			}
+			
+			if (objTemp.getId() == ObjectId.BOSS) {
+				if (tecla == KeyEvent.VK_LEFT) 	    objTemp.setSpdX(0);
+				if (tecla == KeyEvent.VK_RIGHT) 	objTemp.setSpdX(0);
+				if (tecla == KeyEvent.VK_UP)      	objTemp.setSpdY(0);
+				if (tecla == KeyEvent.VK_DOWN) 	objTemp.setSpdY(0);			
+			}
+			
 		}
 	}
 }

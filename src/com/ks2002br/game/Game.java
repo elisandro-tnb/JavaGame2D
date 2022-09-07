@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable {
 
 	private static CarregarImagem mapa;
 
-	private static int CUR_LEVEL = 2, MAX_LEVEL = 4;
+	private static int CUR_LEVEL = 3, MAX_LEVEL = 4;
 
 	public static String gameState = "MENU";
 
